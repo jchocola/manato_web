@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/core/constants/app_images.dart';
 
 class WhyChooseSection extends StatelessWidget {
   const WhyChooseSection({super.key});
@@ -61,7 +62,7 @@ class WhyChooseSection extends StatelessWidget {
 
                     /// CHARACTER
                     Image.asset(
-                      'assets/images/mascot_heart.png',
+                    AppImages.withHeart,
                       height: 480,
                     ),
 

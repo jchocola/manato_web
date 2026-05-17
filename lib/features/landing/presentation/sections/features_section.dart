@@ -31,7 +31,7 @@ class FeaturesSection extends StatelessWidget {
               crossAxisCount: 3,
               mainAxisSpacing: 24,
               crossAxisSpacing: 24,
-              childAspectRatio: 1.8,
+              childAspectRatio: 4/3,
             ),
             itemBuilder: (context, index) {
               return Container(

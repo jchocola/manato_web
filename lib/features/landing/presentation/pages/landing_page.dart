@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manato_web/features/landing/presentation/sections/about_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/cta_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/faq_section.dart';
+import 'package:manato_web/features/landing/presentation/sections/feature_banner_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/features_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/footer_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/gallery_section.dart';
@@ -32,7 +33,9 @@ class LandingPage extends StatelessWidget {
         child: Column(
           children: const [
             HeaderSection(),
+           
             HeroSection(),
+             FeaturesBannerSection(),
             HowItWorksSection(),
             FeaturesSection(),
             PricingSection(),

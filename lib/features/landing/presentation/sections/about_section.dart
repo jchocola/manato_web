@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/core/constants/app_images.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -119,7 +120,7 @@ class AboutSection extends StatelessWidget {
 
                 /// IMAGE
                 Image.asset(
-                  'assets/images/about_mascot.png',
+                  AppImages.about,
                   height: 500,
                 ),
 
