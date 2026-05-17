@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class FeaturesBannerSection extends StatelessWidget {
   const FeaturesBannerSection({super.key});
@@ -6,11 +7,7 @@ class FeaturesBannerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 120),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 40,
-        vertical: 36,
-      ),
+      padding: .all(2.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(32),
@@ -26,6 +23,7 @@ class FeaturesBannerSection extends StatelessWidget {
         ],
       ),
       child: Row(
+        spacing: 1.w,
         children: const [
           Expanded(
             child: FeatureItem(
@@ -36,7 +34,7 @@ class FeaturesBannerSection extends StatelessWidget {
             ),
           ),
 
-          SizedBox(width: 28),
+       
 
           Expanded(
             child: FeatureItem(
@@ -47,18 +45,18 @@ class FeaturesBannerSection extends StatelessWidget {
             ),
           ),
 
-          SizedBox(width: 28),
+         
 
           Expanded(
             child: FeatureItem(
               icon: Icons.shield_outlined,
-              title: 'Secure & Private',
+              title: 'Secure',
               subtitle:
                   'Your data is protected and encrypted',
             ),
           ),
 
-          SizedBox(width: 28),
+     
 
           Expanded(
             child: FeatureItem(
@@ -90,11 +88,12 @@ class FeatureItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 1.w,
       children: [
         /// ICON CONTAINER
         Container(
-          width: 68,
-          height: 68,
+         width: 5.w,
+         height: 5.w,
           decoration: BoxDecoration(
             color: const Color(0xFFF6F3FF),
             borderRadius: BorderRadius.circular(22),
@@ -106,30 +105,33 @@ class FeatureItem extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(width: 20),
+      
 
         /// TEXT
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 1.w,
             children: [
               /// TITLE
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 20,
+                maxLines: 1,
+                style:  TextStyle(
+                  fontSize: 1.5.w,
+                  
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1A1B4B),
                 ),
               ),
 
-              const SizedBox(height: 10),
+           
 
               /// SUBTITLE
               Text(
                 subtitle,
-                style: const TextStyle(
-                  fontSize: 16,
+                style:  TextStyle(
+                  fontSize: 1.w,
                   height: 1.6,
                   color: Color(0xFF8B8BA7),
                 ),
