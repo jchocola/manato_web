@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:manato_web/core/constants/app_images.dart';
+import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:sizer/sizer.dart';
 
 class WhyChooseSection extends StatelessWidget {
   const WhyChooseSection({super.key});
@@ -8,86 +11,35 @@ class WhyChooseSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
-      ),
+     
       child: Column(
         children: [
-          /// TITLE
-          const Text(
-            'Why Choose Manato?',
-            style: TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1B4B),
-            ),
-          ),
 
-          const SizedBox(height: 14),
-
-          const Text(
-            'Built for creators, by creators.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFF8B8BA7),
-            ),
-          ),
-
-          const SizedBox(height: 80),
+          SectionTitle(title: 'Why Choose Manato?', subtitle: 'Built for creators, by creators.'),
+         
+        Gap(5.w),
 
           /// CONTENT
           Row(
             children: [
               /// LEFT IMAGE
               Expanded(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    /// GLOW
-                    Container(
-                      width: 420,
-                      height: 420,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: RadialGradient(
-                          colors: [
-                            const Color(0xFF8E7BFF)
-                                .withOpacity(0.12),
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    /// CHARACTER
+                child:   /// CHARACTER
                     Image.asset(
                     AppImages.withHeart,
-                      height: 480,
+                      height: 40.w,
+                      width: 40.w,
                     ),
 
-                    /// STARS
-                    Positioned(
-                      top: 40,
-                      left: 80,
-                      child: _buildSparkle(),
-                    ),
-
-                    Positioned(
-                      bottom: 90,
-                      right: 70,
-                      child: _buildSparkle(),
-                    ),
-                  ],
-                ),
               ),
 
-              const SizedBox(width: 80),
+           
 
               /// RIGHT FEATURES
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 2.w,
                   children: const [
                     WhyChooseItem(
                       title: 'User-Friendly Interface',
@@ -95,7 +47,7 @@ class WhyChooseSection extends StatelessWidget {
                           'Designed for everyone, from beginners to professionals.',
                     ),
 
-                    SizedBox(height: 38),
+                  
 
                     WhyChooseItem(
                       title: 'Cutting-Edge AI',
@@ -103,7 +55,7 @@ class WhyChooseSection extends StatelessWidget {
                           'Leverage the latest AI technology for unmatched results.',
                     ),
 
-                    SizedBox(height: 38),
+                  
 
                     WhyChooseItem(
                       title: 'Community-Driven',
@@ -111,7 +63,7 @@ class WhyChooseSection extends StatelessWidget {
                           'Join a growing community of creators and share your work.',
                     ),
 
-                    SizedBox(height: 38),
+                   
 
                     WhyChooseItem(
                       title: 'Constantly Improving',
@@ -125,14 +77,6 @@ class WhyChooseSection extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildSparkle() {
-    return const Icon(
-      Icons.auto_awesome,
-      color: Color(0xFFE6D7FF),
-      size: 26,
     );
   }
 }
@@ -154,8 +98,8 @@ class WhyChooseItem extends StatelessWidget {
       children: [
         /// ICON
         Container(
-          width: 34,
-          height: 34,
+          width: 3.w,
+          height: 3.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
@@ -163,16 +107,16 @@ class WhyChooseItem extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: const Center(
+          child:  Center(
             child: Icon(
               Icons.check,
-              size: 18,
+              size: 2.w,
               color: Color(0xFF8E7BFF),
             ),
           ),
         ),
 
-        const SizedBox(width: 20),
+     Gap(1.w),
 
         /// TEXT
         Expanded(
@@ -181,19 +125,19 @@ class WhyChooseItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(
-                  fontSize: 24,
+                style:  TextStyle(
+                  fontSize: 2.w,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1A1B4B),
                 ),
               ),
 
-              const SizedBox(height: 10),
+             Gap(1.w),
 
               Text(
                 subtitle,
-                style: const TextStyle(
-                  fontSize: 17,
+                style:  TextStyle(
+                  fontSize: 1.5.w,
                   height: 1.7,
                   color: Color(0xFF8B8BA7),
                 ),

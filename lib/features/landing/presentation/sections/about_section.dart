@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:manato_web/core/constants/app_images.dart';
+import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:sizer/sizer.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
@@ -8,10 +11,7 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
-      ),
+     
       child: Row(
         children: [
           /// LEFT CONTENT
@@ -19,48 +19,26 @@ class AboutSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// TITLE
-                const Text(
-                  'About Us',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A1B4B),
-                  ),
-                ),
 
-                const SizedBox(height: 20),
+                SectionTitle(title: 'About Us', subtitle: 'Our mission is to empower creativity through AI technology.'),
+              
 
-                /// SUBTITLE
-                const SizedBox(
-                  width: 450,
-                  child: Text(
-                    'Our mission is to empower creativity through AI technology.',
-                    style: TextStyle(
-                      fontSize: 22,
-                      height: 1.6,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF4A4D6C),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 32),
+                Gap(5.w),
 
                 /// DESCRIPTION
-                const SizedBox(
-                  width: 520,
+                 SizedBox(
+                  width: 45.w,
                   child: Text(
                     'We believe that everyone has a story to tell and creativity to share. Manato was built to make image generation simple, fun, and accessible to all.',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 1.5.w,
                       height: 1.8,
                       color: Color(0xFF8B8BA7),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 60),
+              Gap(5.w),
 
                 /// STATS
                 Row(
@@ -95,48 +73,14 @@ class AboutSection extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 80),
+        
 
           /// RIGHT IMAGE
           Expanded(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                /// BACKGROUND GLOW
-                Container(
-                  width: 480,
-                  height: 480,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: RadialGradient(
-                      colors: [
-                        const Color(0xFF8E7BFF)
-                            .withOpacity(0.10),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-
-                /// IMAGE
-                Image.asset(
-                  AppImages.about,
-                  height: 500,
-                ),
-
-                /// DECORATIVE DOTS
-                Positioned(
-                  top: 80,
-                  left: 40,
-                  child: _buildDot(),
-                ),
-
-                Positioned(
-                  bottom: 100,
-                  right: 40,
-                  child: _buildDot(),
-                ),
-              ],
+            child: Image.asset(
+              AppImages.about,
+              height: 40.w,
+              
             ),
           ),
         ],
@@ -144,16 +88,6 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget _buildDot() {
-    return Container(
-      width: 16,
-      height: 16,
-      decoration: BoxDecoration(
-        color: const Color(0xFFE9DFFF),
-        borderRadius: BorderRadius.circular(100),
-      ),
-    );
-  }
 }
 
 class AboutStat extends StatelessWidget {
@@ -170,25 +104,29 @@ class AboutStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 2.w,
       children: [
         /// VALUE
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 42,
+          style:  TextStyle(
+            fontSize: 4.w,
             fontWeight: FontWeight.bold,
             color: Color(0xFF7B61FF),
           ),
         ),
 
-        const SizedBox(height: 10),
+      
 
         /// LABEL
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 18,
-            color: Color(0xFF8B8BA7),
+        SizedBox(
+          height: 3.h,
+          child: Text(
+            label,
+            style:  TextStyle(
+              fontSize: 1.5.w,
+              color: Color(0xFF8B8BA7),
+            ),
           ),
         ),
       ],

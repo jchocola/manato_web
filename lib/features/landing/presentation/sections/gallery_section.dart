@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:sizer/sizer.dart';
 
 class GallerySection extends StatefulWidget {
   const GallerySection({super.key});
@@ -35,34 +38,14 @@ class _GallerySectionState extends State<GallerySection> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
-      ),
+   
       child: Column(
         children: [
-          /// TITLE
-          const Text(
-            'Gallery',
-            style: TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1B4B),
-            ),
-          ),
 
-          const SizedBox(height: 16),
+          SectionTitle(title: 'Gallery', subtitle: 'Explore stunning creations made by our community.'),
+       
 
-          /// SUBTITLE
-          const Text(
-            'Explore stunning creations made by our community.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFF8B8BA7),
-            ),
-          ),
-
-          const SizedBox(height: 50),
+          Gap(5.w),
 
           /// CATEGORY CHIPS
           Row(
@@ -129,7 +112,7 @@ class _GallerySectionState extends State<GallerySection> {
 
           /// GALLERY GRID
           SizedBox(
-            width: 1100,
+           width: double.infinity,
             child: Wrap(
               spacing: 22,
               runSpacing: 22,
