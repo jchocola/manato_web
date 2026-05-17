@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:manato_web/core/widgets/section_title.dart';
 import 'package:sizer/sizer.dart';
 
 class HowItWorksSection extends StatelessWidget {
@@ -12,27 +13,10 @@ class HowItWorksSection extends StatelessWidget {
    
       child: Column(
         children: [
-          /// TITLE
-           Text(
-            'How It Works',
-            style: TextStyle(
-              fontSize: 4.w,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1B4B),
-            ),
-          ),
 
-        Gap(1.w),
-
-           Text(
-            'Create amazing images in just a few simple steps.',
-            style: TextStyle(
-              fontSize: 2.w,
-              color: Color(0xFF8B8BA7),
-            ),
-          ),
-
-       Gap(5.w),
+          SectionTitle(title: 'How It Works', subtitle: 'Create amazing images in just a few simple steps.'),
+      
+       Gap(3.w),
 
           /// STEPS
           Row(

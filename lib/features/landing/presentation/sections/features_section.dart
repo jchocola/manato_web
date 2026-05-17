@@ -1,69 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
+import 'package:manato_web/core/constants/app_icons.dart';
 import 'package:manato_web/core/theme/app_colors.dart';
 import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:sizer/sizer.dart';
 
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
+    final features = [
+      {
+        'title': 'Diverse Templates',
+        'subtitle': 'Explore a wide range of templates for any idea.',
+        'icon': AppIcons.templates,
+        'color': const Color(0xFF8E7BFF),
+      },
+      {
+        'title': 'AI Customization',
+        'subtitle': 'Tailor every detail to match your vision.',
+        'icon': AppIcons.magic,
+        'color': const Color(0xFF5B9CFF),
+      },
+      {
+        'title': 'High Resolution',
+        'subtitle': 'Download high-quality images in any format.',
+        'icon': AppIcons.image,
+        'color': const Color(0xFF43D9B5),
+      },
+      {
+        'title': 'Secure Storage',
+        'subtitle': 'Your creations are safe and always accessible.',
+        'icon': AppIcons.security,
+        'color': const Color(0xFFFFA24D),
+      },
+      {
+        'title': 'Favorites',
+        'subtitle': 'Save your favorite creations for later.',
+        'icon': AppIcons.favourite,
+        'color': const Color(0xFF8E7BFF),
+      },
+      {
+        'title': 'Fast & Reliable',
+        'subtitle': 'Lightning-fast generation with perfect results.',
+        'icon': AppIcons.flash,
+        'color': const Color(0xFFB27CFF),
+      },
+    ];
+
+    return Column(
+      children: [
+        const SectionTitle(
+          title: 'Powerful Features',
+          subtitle: 'Everything you need to create stunning visuals.',
+        ),
+
+        Gap(4.w),
+
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 6,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 2.w,
+            crossAxisSpacing: 2.w,
+           // childAspectRatio: 4 / 3,
+          ),
+          itemBuilder: (context, index) {
+            final feature = features[index];
+            return FeatureCard(
+              title: feature['title'] as String,
+              subtitle: feature['subtitle'] as String,
+              icon: feature['icon'] as IconData,
+              iconColor: feature['color'] as Color,
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class FeatureCard extends StatelessWidget {
+  const FeatureCard({
+    super.key,
+    this.title = 'title',
+    this.subtitle = 'subtitle',
+    this.icon = Icons.abc,
+    this.iconColor = Colors.black
+  });
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color iconColor;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(2.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(2.w),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 2.w,
         children: [
-          const SectionTitle(
-            title: 'Powerful Features',
-            subtitle: 'Everything you need to create stunning visuals.',
+          Icon(icon, color: iconColor),
+
+          Text(
+            title,
+            style: TextStyle(fontSize: 2.w, fontWeight: FontWeight.bold),
           ),
 
-          const SizedBox(height: 60),
-
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 6,
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 24,
-              crossAxisSpacing: 24,
-              childAspectRatio: 4/3,
-            ),
-            itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.all(28),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: AppColors.border,
-                  ),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.auto_awesome),
-                    SizedBox(height: 16),
-                    Text(
-                      'AI Customization',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                     SizedBox(height: 12),
-                    Text(
-                      'Tailor every detail to match your vision.',
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+          Text(subtitle , style: TextStyle(fontSize: 1.6.w),),
         ],
       ),
     );
