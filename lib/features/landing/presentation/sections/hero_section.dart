@@ -70,7 +70,7 @@ class HeroSection extends StatelessWidget {
               Gap(3.w),
 
               Row(
-                spacing: 2.w,
+                spacing: 1.w,
                 children: [
                   AppButton(title: 'Get Started', onTap: () {}),
 

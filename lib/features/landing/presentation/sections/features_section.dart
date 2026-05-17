@@ -109,7 +109,7 @@ class FeatureCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 2.w,
         children: [
-          Icon(icon, color: iconColor),
+          Icon(icon, color: iconColor , size: 2.w,),
 
           Text(
             title,

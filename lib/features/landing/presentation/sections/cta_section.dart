@@ -13,14 +13,14 @@ class CTASection extends StatelessWidget {
       alignment: .centerRight,
       children: [
         Container(
-          height: 8.h,
+          height: 10.h,
           padding:  EdgeInsets.symmetric(vertical:  3.w ,horizontal:  10.w),
           decoration: BoxDecoration(
             color: AppColors.primary.withOpacity(0.1),
            // borderRadius: BorderRadius.circular(40),
           ),
           child: Row(
-           spacing: 15.w,
+           spacing: 2.w,
             children: [
                Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

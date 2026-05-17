@@ -102,12 +102,12 @@ class TestimonialCard extends StatelessWidget {
           Row(
             children: List.generate(
               5,
-              (index) => const Padding(
+              (index) =>  Padding(
                 padding: EdgeInsets.only(right: 4),
                 child: Icon(
                   Icons.star_rounded,
                   color: Color(0xFFFFC83D),
-                  size: 22,
+                  size: 2.w,
                 ),
               ),
             ),

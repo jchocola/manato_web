@@ -87,6 +87,7 @@ class AvailableOnStoresSection extends StatelessWidget {
 
                 /// STORE BUTTONS
                 Row(
+                  spacing: 2.w,
                   children: [
                     _storeButton(
                       icon: Icons.apple,
@@ -94,7 +95,7 @@ class AvailableOnStoresSection extends StatelessWidget {
                       subtitle: 'App Store',
                     ),
 
-                    const SizedBox(width: 22),
+                  
 
                     _storeButton(
                       icon: Icons.android,
@@ -107,7 +108,7 @@ class AvailableOnStoresSection extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 40),
+        Gap(2.w),
 
           /// RIGHT PHONE MOCKUP
           Expanded(

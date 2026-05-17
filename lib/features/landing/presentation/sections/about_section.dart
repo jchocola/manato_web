@@ -104,15 +104,18 @@ class AboutStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 2.w,
+     // spacing: 2.w,
       children: [
         /// VALUE
-        Text(
-          value,
-          style:  TextStyle(
-            fontSize: 4.w,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF7B61FF),
+        SizedBox(
+          height:  5.h,
+          child: Text(
+            value,
+            style:  TextStyle(
+              fontSize: 4.w,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF7B61FF),
+            ),
           ),
         ),
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_infinite_marquee/flutter_infinite_marquee.dart';
 import 'package:gap/gap.dart';
+import 'package:manato_web/core/widgets/app_button.dart';
 import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:manato_web/core/widgets/template_card.dart';
 import 'package:sizer/sizer.dart';
 
 class GallerySection extends StatefulWidget {
@@ -38,254 +41,41 @@ class _GallerySectionState extends State<GallerySection> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-   
+
       child: Column(
+        spacing: 1.w,
         children: [
-
-          SectionTitle(title: 'Gallery', subtitle: 'Explore stunning creations made by our community.'),
-       
-
-          Gap(5.w),
-
-          /// CATEGORY CHIPS
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              categories.length,
-              (index) {
-                final isSelected = selectedCategory == index;
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(14),
-                    onTap: () {
-                      setState(() {
-                        selectedCategory = index;
-                      });
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? const Color(0xFF7B61FF)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: isSelected
-                              ? Colors.transparent
-                              : const Color(0xFFE9E7F7),
-                        ),
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color: const Color(0xFF7B61FF)
-                                      .withOpacity(0.25),
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 8),
-                                ),
-                              ]
-                            : [],
-                      ),
-                      child: Text(
-                        categories[index],
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: isSelected
-                              ? Colors.white
-                              : const Color(0xFF7E809A),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+          SectionTitle(
+            title: 'Gallery',
+            subtitle: 'Explore stunning creations made by our community.',
           ),
 
-          const SizedBox(height: 60),
+          Gap(2.w),
 
-          /// GALLERY GRID
-          SizedBox(
-           width: double.infinity,
-            child: Wrap(
-              spacing: 22,
-              runSpacing: 22,
-              children: List.generate(
-                images.length,
-                (index) {
-                  final isLarge =
-                      index == 4;
-
-                  return GalleryItem(
-                    image: images[index],
-                    height: isLarge ? 360 : 200,
-                    width: 200,
-                  );
-                },
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 60),
+         
+         
 
           /// BUTTON
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF8E7BFF),
-                  Color(0xFF7B61FF),
-                ],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF7B61FF)
-                      .withOpacity(0.25),
-                  blurRadius: 24,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 38,
-                  vertical: 20,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-              ),
-              child: const Text(
-                'Explore More',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
+          AppButton(title: 'Explore More', onTap: () {}),
         ],
       ),
     );
   }
 }
 
-class GalleryItem extends StatefulWidget {
-  final String image;
-  final double width;
-  final double height;
-
-  const GalleryItem({
-    super.key,
-    required this.image,
-    required this.width,
-    required this.height,
-  });
-
-  @override
-  State<GalleryItem> createState() => _GalleryItemState();
-}
-
-class _GalleryItemState extends State<GalleryItem> {
-  bool isHovered = false;
+class TemplatesSection extends StatelessWidget {
+  const TemplatesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) {
-        setState(() {
-          isHovered = true;
-        });
-      },
-      onExit: (_) {
-        setState(() {
-          isHovered = false;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        width: widget.width,
-        height: widget.height,
-        transform: Matrix4.identity()
-          ..scale(isHovered ? 1.03 : 1.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(
-                isHovered ? 0.12 : 0.05,
-              ),
-              blurRadius: isHovered ? 30 : 18,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              /// IMAGE
-              Image.asset(
-                widget.image,
-                fit: BoxFit.cover,
-              ),
-
-              /// HOVER OVERLAY
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 250),
-                opacity: isHovered ? 1 : 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black.withOpacity(0.45),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              /// ICON
-              AnimatedPositioned(
-                duration: const Duration(milliseconds: 250),
-                bottom: isHovered ? 20 : 10,
-                right: 20,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 250),
-                  opacity: isHovered ? 1 : 0,
-                  child: Container(
-                    width: 52,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: const Icon(
-                      Icons.open_in_full,
-                      color: Color(0xFF7B61FF),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return SizedBox(
+  height: 23.h,
+      child: InfiniteMarquee(
+        speed: 60, // pixels per second; negative for reverse
+        itemBuilder: (BuildContext context, int index) {
+          return FantasyTemplateCard();
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
       ),
     );
   }

@@ -78,10 +78,10 @@ class FooterSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                 Text(
                   'Follow Us',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 1.5.w,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1A1B4B),
                   ),
@@ -89,8 +89,9 @@ class FooterSection extends StatelessWidget {
 
                 Gap(2.w),
 
-                Row(
+                Wrap(
                   spacing: 1.w,
+                  runSpacing: 1.w,
                   children: [
                     _socialButton(Icons.camera_alt_outlined),
 

@@ -15,19 +15,18 @@ import 'package:manato_web/features/landing/presentation/sections/testimonilas_s
 import 'package:manato_web/features/landing/presentation/sections/why_choose_section.dart';
 import 'package:sizer/sizer.dart';
 
-
 class LandingPage extends StatelessWidget {
-   const LandingPage({super.key});
+  const LandingPage({super.key});
 
-// final homeKey = GlobalKey();
-// final pricingKey = GlobalKey();
-// final faqKey = GlobalKey();
+  // final homeKey = GlobalKey();
+  // final pricingKey = GlobalKey();
+  // final faqKey = GlobalKey();
 
-// Scrollable.ensureVisible(
-//   pricingKey.currentContext!,
-//   duration: const Duration(milliseconds: 700),
-//   curve: Curves.easeInOut,
-// );
+  // Scrollable.ensureVisible(
+  //   pricingKey.currentContext!,
+  //   duration: const Duration(milliseconds: 700),
+  //   curve: Curves.easeInOut,
+  // );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,31 +35,38 @@ class LandingPage extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 10.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
+                spacing: 5.w,
                 children: const [
-                 // HeaderSection(),
-                 
+                  // HeaderSection(),
                   HeroSection(),
-                
-                   FeaturesBannerSection(),
+
+                  FeaturesBannerSection(),
                   HowItWorksSection(),
                   FeaturesSection(),
-                    AvailableOnStoresSection(),
-                 // PricingSection(),
+                  AvailableOnStoresSection(),
+                  // PricingSection(),
                   TestimonialsSection(),
                   GallerySection(),
-                  WhyChooseSection(),
-                  AboutSection(),
-                  FAQSection(),
-                 
-                 
                 ],
               ),
             ),
-             CTASection(),
 
-              FooterSection(),
+            Transform.rotate(
+              angle: -0.06,
+              child: Column(children: [TemplatesSection(), TemplatesSection()]),
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: Column(
+                children: [WhyChooseSection(), AboutSection(), FAQSection()],
+              ),
+            ),
+            CTASection(),
+
+            FooterSection(),
           ],
         ),
       ),

@@ -101,7 +101,7 @@ class FeatureItem extends StatelessWidget {
           child: Icon(
             icon,
             color: const Color(0xFF7B61FF),
-            size: 30,
+            size: 2.w,
           ),
         ),
 
