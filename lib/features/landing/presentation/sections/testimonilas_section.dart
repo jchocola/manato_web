@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:manato_web/core/widgets/section_title.dart';
+import 'package:sizer/sizer.dart';
 
 class TestimonialsSection extends StatelessWidget {
   const TestimonialsSection({super.key});
@@ -7,33 +10,15 @@ class TestimonialsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
-      ),
+
       child: Column(
         children: [
-          /// TITLE
-          const Text(
-            'Loved by Creators',
-            style: TextStyle(
-              fontSize: 48,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1A1B4B),
-            ),
+          SectionTitle(
+            title: 'Loved by Creators',
+            subtitle: 'See what our amazing community says about Manato.',
           ),
 
-          const SizedBox(height: 16),
-
-          const Text(
-            'See what our amazing community says about Manato.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFF8B8BA7),
-            ),
-          ),
-
-          const SizedBox(height: 70),
+          Gap(5.w),
 
           /// CARDS
           Row(
@@ -44,8 +29,7 @@ class TestimonialsSection extends StatelessWidget {
                       '"Manato has completely changed the way I create content. The results are incredible!"',
                   name: 'Samantha Lee',
                   role: 'Digital Artist',
-                  image:
-                      'https://i.pravatar.cc/150?img=32',
+                  image: 'https://i.pravatar.cc/150?img=32',
                 ),
               ),
 
@@ -57,8 +41,7 @@ class TestimonialsSection extends StatelessWidget {
                       '"The templates and AI customization options are exactly what I was looking for."',
                   name: 'James Carter',
                   role: 'Graphic Designer',
-                  image:
-                      'https://i.pravatar.cc/150?img=12',
+                  image: 'https://i.pravatar.cc/150?img=12',
                 ),
               ),
 
@@ -70,8 +53,7 @@ class TestimonialsSection extends StatelessWidget {
                       '"Fast, easy, and secure. Manato is my go-to tool for all my projects."',
                   name: 'Olivia Brown',
                   role: 'Content Creator',
-                  image:
-                      'https://i.pravatar.cc/150?img=44',
+                  image: 'https://i.pravatar.cc/150?img=44',
                 ),
               ),
             ],
@@ -99,13 +81,11 @@ class TestimonialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(2.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: const Color(0xFFF0EEFF),
-        ),
+        border: Border.all(color: const Color(0xFFF0EEFF)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -116,6 +96,7 @@ class TestimonialCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 1.w,
         children: [
           /// STARS
           Row(
@@ -132,51 +113,44 @@ class TestimonialCard extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 28),
-
-          /// REVIEW
-          Text(
-            review,
-            style: const TextStyle(
-              fontSize: 20,
-              height: 1.7,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF1A1B4B),
-            ),
+          SizedBox(
+            height: 12.h,
+            child:
+                /// REVIEW
+                Text(
+                  review,
+                  style: TextStyle(
+                    fontSize: 1.5.w,
+                    height: 1.7,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF1A1B4B),
+                  ),
+                ),
           ),
-
-          const SizedBox(height: 36),
 
           /// USER
           Row(
+            spacing: 1.w,
             children: [
-              CircleAvatar(
-                radius: 26,
-                backgroundImage: NetworkImage(image),
-              ),
-
-              const SizedBox(width: 16),
+              CircleAvatar(radius: 2.w, backgroundImage: NetworkImage(image)),
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(
-                      fontSize: 17,
+                    style: TextStyle(
+                      fontSize: 1.5.w,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF1A1B4B),
                     ),
                   ),
 
-                  const SizedBox(height: 6),
+                  Gap(1.w),
 
                   Text(
                     role,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF8B8BA7),
-                    ),
+                    style: TextStyle(fontSize: 1.w, color: Color(0xFF8B8BA7)),
                   ),
                 ],
               ),
