@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:sizer/sizer.dart';
 
 class AvailableOnStoresSection extends StatelessWidget {
   const AvailableOnStoresSection({super.key});
@@ -9,7 +11,7 @@ class AvailableOnStoresSection extends StatelessWidget {
       width: double.infinity,
     
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(2.w),
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -43,45 +45,45 @@ class AvailableOnStoresSection extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child: const Text(
+                  child:  Text(
                     'Available on Mobile',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 1.6.w,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF7B61FF),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 30),
+               Gap(2.w),
 
                 /// TITLE
-                const Text(
+                 Text(
                   'Create AI Images Anywhere',
                   style: TextStyle(
-                    fontSize: 56,
+                    fontSize: 4.w,
                     fontWeight: FontWeight.bold,
                     height: 1.1,
                     color: Color(0xFF1A1B4B),
                   ),
                 ),
 
-                const SizedBox(height: 24),
+                Gap(2.w),
 
                 /// DESCRIPTION
-                const SizedBox(
-                  width: 600,
+                 SizedBox(
+                  width: 40.w,
                   child: Text(
                     'Download Manato on iOS and Android to generate stunning AI art anytime, anywhere. Fast, secure, and built for creators.',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 1.8.w,
                       height: 1.7,
                       color: Color(0xFF7E809A),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 42),
+                Gap(2.w),
 
                 /// STORE BUTTONS
                 Row(
@@ -114,8 +116,8 @@ class AvailableOnStoresSection extends StatelessWidget {
               children: [
                 /// GLOW
                 Container(
-                  width: 500,
-                  height: 500,
+                  width: 45.w,
+                  height: 45.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: RadialGradient(
@@ -292,9 +294,9 @@ class AvailableOnStoresSection extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 26,
-          vertical: 18,
+        padding:  EdgeInsets.symmetric(
+          horizontal: 2.w,
+          vertical: 1.w,
         ),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -308,14 +310,15 @@ class AvailableOnStoresSection extends StatelessWidget {
           ],
         ),
         child: Row(
+          spacing: 1.w,
           children: [
             Icon(
               icon,
-              size: 38,
+              size: 3.w,
               color: const Color(0xFF1A1B4B),
             ),
 
-            const SizedBox(width: 16),
+           
 
             Column(
               crossAxisAlignment:
@@ -323,19 +326,19 @@ class AvailableOnStoresSection extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style:  TextStyle(
+                    fontSize: 1.2.w,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFF8B8BA7),
                   ),
                 ),
 
-                const SizedBox(height: 4),
+               
 
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style:  TextStyle(
+                    fontSize: 1.5.w,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1A1B4B),
                   ),
