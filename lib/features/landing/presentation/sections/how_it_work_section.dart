@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:sizer/sizer.dart';
 
 class HowItWorksSection extends StatelessWidget {
   const HowItWorksSection({super.key});
@@ -7,33 +9,30 @@ class HowItWorksSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 100,
-      ),
+   
       child: Column(
         children: [
           /// TITLE
-          const Text(
+           Text(
             'How It Works',
             style: TextStyle(
-              fontSize: 48,
+              fontSize: 4.w,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1A1B4B),
             ),
           ),
 
-          const SizedBox(height: 16),
+        Gap(1.w),
 
-          const Text(
+           Text(
             'Create amazing images in just a few simple steps.',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 2.w,
               color: Color(0xFF8B8BA7),
             ),
           ),
 
-          const SizedBox(height: 80),
+       Gap(5.w),
 
           /// STEPS
           Row(
@@ -112,54 +111,59 @@ class HowItWorksSection extends StatelessWidget {
       children: [
         /// ICON BOX
         Container(
-          width: 110,
-          height: 110,
+          width: 5.w,
+          height: 5.w,
           decoration: BoxDecoration(
             color: const Color(0xFFF6F2FF),
             borderRadius: BorderRadius.circular(28),
           ),
           child: Icon(
             icon,
-            size: 42,
+            size: 3.w,
             color: const Color(0xFF7B61FF),
           ),
         ),
 
-        const SizedBox(height: 24),
+      Gap(2.w),
 
         /// NUMBER
         Text(
           number,
-          style: const TextStyle(
-            fontSize: 32,
+          style:  TextStyle(
+            fontSize: 3.w,
             fontWeight: FontWeight.bold,
             color: Color(0xFF7B61FF),
           ),
         ),
 
-        const SizedBox(height: 16),
+       Gap(1.w),
 
         /// TITLE
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFF1A1B4B),
+        SizedBox(
+          height: 4.h,
+          child: Text(
+            title,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style:  TextStyle(
+              fontSize: 2.w,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1A1B4B),
+            ),
           ),
         ),
 
-        const SizedBox(height: 12),
+     //  Gap(1.w),
 
         /// SUBTITLE
         SizedBox(
-          width: 220,
+          height: 3.h,
           child: Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
+            maxLines: 2,
+            style:  TextStyle(
+              fontSize: 1.3.w,
               height: 1.6,
               color: Color(0xFF8B8BA7),
             ),
