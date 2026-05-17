@@ -11,29 +11,25 @@ class WhyChooseSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-     
+
       child: Column(
         children: [
+          SectionTitle(
+            title: 'Why Choose Manato?',
+            subtitle: 'Built for creators, by creators.',
+          ),
 
-          SectionTitle(title: 'Why Choose Manato?', subtitle: 'Built for creators, by creators.'),
-         
-        Gap(5.w),
+          Gap(5.w),
 
           /// CONTENT
           Row(
             children: [
               /// LEFT IMAGE
               Expanded(
-                child:   /// CHARACTER
-                    Image.asset(
-                    AppImages.withHeart,
-                      height: 40.w,
-                      width: 40.w,
-                    ),
-
+                child:
+                    /// CHARACTER
+                    Image.asset(AppImages.withHeart, height: 40.w, width: 40.w),
               ),
-
-           
 
               /// RIGHT FEATURES
               Expanded(
@@ -47,23 +43,17 @@ class WhyChooseSection extends StatelessWidget {
                           'Designed for everyone, from beginners to professionals.',
                     ),
 
-                  
-
                     WhyChooseItem(
                       title: 'Cutting-Edge AI',
                       subtitle:
                           'Leverage the latest AI technology for unmatched results.',
                     ),
 
-                  
-
                     WhyChooseItem(
                       title: 'Community-Driven',
                       subtitle:
                           'Join a growing community of creators and share your work.',
                     ),
-
-                   
 
                     WhyChooseItem(
                       title: 'Constantly Improving',
@@ -85,11 +75,7 @@ class WhyChooseItem extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  const WhyChooseItem({
-    super.key,
-    required this.title,
-    required this.subtitle,
-  });
+  const WhyChooseItem({super.key, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -102,21 +88,14 @@ class WhyChooseItem extends StatelessWidget {
           height: 3.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(
-              color: const Color(0xFF8E7BFF),
-              width: 2,
-            ),
+            border: Border.all(color: const Color(0xFF8E7BFF), width: 2),
           ),
-          child:  Center(
-            child: Icon(
-              Icons.check,
-              size: 2.w,
-              color: Color(0xFF8E7BFF),
-            ),
+          child: Center(
+            child: Icon(Icons.check, size: 2.w, color: Color(0xFF8E7BFF)),
           ),
         ),
 
-     Gap(1.w),
+        Gap(1.w),
 
         /// TEXT
         Expanded(
@@ -125,18 +104,18 @@ class WhyChooseItem extends StatelessWidget {
             children: [
               Text(
                 title,
-                style:  TextStyle(
+                style: TextStyle(
                   fontSize: 2.w,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1A1B4B),
                 ),
               ),
 
-             Gap(1.w),
+              Gap(1.w),
 
               Text(
                 subtitle,
-                style:  TextStyle(
+                style: TextStyle(
                   fontSize: 1.5.w,
                   height: 1.7,
                   color: Color(0xFF8B8BA7),

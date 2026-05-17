@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:sizer/sizer.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -7,17 +9,10 @@ class FooterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 60,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.w),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(
-          top: BorderSide(
-            color: Color(0xFFF1F0FF),
-          ),
-        ),
+        border: Border(top: BorderSide(color: Color(0xFFF1F0FF))),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,43 +21,30 @@ class FooterSection extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Row(
+              spacing: 1.w,
               children: [
                 Container(
-                  width: 46,
-                  height: 46,
+                  width: 2.w,
+                  height: 2.w,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF8E7BFF),
-                        Color(0xFFC6B7FF),
-                      ],
+                      colors: [Color(0xFF8E7BFF), Color(0xFFC6B7FF)],
                     ),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: const Icon(
-                    Icons.auto_awesome,
-                    color: Colors.white,
-                  ),
+                  child: const Icon(Icons.auto_awesome, color: Colors.white),
                 ),
 
-                const SizedBox(width: 14),
-
-                const Text(
+                Text(
                   'Manato',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 4.w,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1A1B4B),
                   ),
                 ),
 
-                const SizedBox(width: 6),
-
-                const Icon(
-                  Icons.star,
-                  color: Color(0xFFFFA9E7),
-                  size: 18,
-                ),
+                Icon(Icons.star, color: Color(0xFFFFA9E7), size: 1.5.w),
               ],
             ),
           ),
@@ -71,12 +53,7 @@ class FooterSection extends StatelessWidget {
           Expanded(
             child: _buildFooterColumn(
               title: 'Product',
-              items: [
-                'Features',
-                'Templates',
-                'Pricing',
-                'Updates',
-              ],
+              items: ['Features', 'Templates', 'Pricing', 'Updates'],
             ),
           ),
 
@@ -84,12 +61,7 @@ class FooterSection extends StatelessWidget {
           Expanded(
             child: _buildFooterColumn(
               title: 'Company',
-              items: [
-                'About Us',
-                'Blog',
-                'Careers',
-                'Contact',
-              ],
+              items: ['About Us', 'Blog', 'Careers', 'Contact'],
             ),
           ),
 
@@ -97,11 +69,7 @@ class FooterSection extends StatelessWidget {
           Expanded(
             child: _buildFooterColumn(
               title: 'Legal',
-              items: [
-                'Terms of Service',
-                'Privacy Policy',
-                'Refund Policy',
-              ],
+              items: ['Terms of Service', 'Privacy Policy', 'Refund Policy'],
             ),
           ),
 
@@ -119,31 +87,26 @@ class FooterSection extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 28),
+                Gap(2.w),
 
                 Row(
+                  spacing: 1.w,
                   children: [
                     _socialButton(Icons.camera_alt_outlined),
-                    const SizedBox(width: 14),
 
                     _socialButton(Icons.flutter_dash),
-                    const SizedBox(width: 14),
 
                     _socialButton(Icons.sports_esports_outlined),
-                    const SizedBox(width: 14),
 
                     _socialButton(Icons.smart_display_outlined),
                   ],
                 ),
 
-                const SizedBox(height: 32),
+                Gap(2.w),
 
-                const Text(
+                Text(
                   '© 2024 Manato. All rights reserved.',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF9B9CB3),
-                  ),
+                  style: TextStyle(fontSize: 1.5.w, color: Color(0xFF9B9CB3)),
                 ),
               ],
             ),
@@ -163,27 +126,24 @@ class FooterSection extends StatelessWidget {
         /// TITLE
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 18,
+          style: TextStyle(
+            fontSize: 1.7.w,
             fontWeight: FontWeight.bold,
             color: Color(0xFF1A1B4B),
           ),
         ),
 
-        const SizedBox(height: 24),
+        Gap(2.w),
 
         /// ITEMS
         ...items.map(
           (item) => Padding(
-            padding: const EdgeInsets.only(bottom: 18),
+            padding: EdgeInsets.only(bottom: 2.w),
             child: InkWell(
               onTap: () {},
               child: Text(
                 item,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF8B8BA7),
-                ),
+                style: TextStyle(fontSize: 1.4.w, color: Color(0xFF8B8BA7)),
               ),
             ),
           ),
@@ -194,17 +154,13 @@ class FooterSection extends StatelessWidget {
 
   Widget _socialButton(IconData icon) {
     return Container(
-      width: 46,
-      height: 46,
+      width: 3.w,
+      height: 3.w,
       decoration: BoxDecoration(
         color: const Color(0xFFF6F5FF),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Icon(
-        icon,
-        color: const Color(0xFF7B61FF),
-        size: 22,
-      ),
+      child: Icon(icon, color: const Color(0xFF7B61FF), size: 2.w),
     );
   }
 }

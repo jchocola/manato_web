@@ -33,28 +33,35 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       appBar: HeaderSection(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 10.w),
-          child: Column(
-            children: const [
-             // HeaderSection(),
-             
-              HeroSection(),
-            
-               FeaturesBannerSection(),
-              HowItWorksSection(),
-              FeaturesSection(),
-                AvailableOnStoresSection(),
-             // PricingSection(),
-              TestimonialsSection(),
-              GallerySection(),
-              WhyChooseSection(),
-              AboutSection(),
-              FAQSection(),
-              CTASection(),
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 10.w),
+              child: Column(
+                children: const [
+                 // HeaderSection(),
+                 
+                  HeroSection(),
+                
+                   FeaturesBannerSection(),
+                  HowItWorksSection(),
+                  FeaturesSection(),
+                    AvailableOnStoresSection(),
+                 // PricingSection(),
+                  TestimonialsSection(),
+                  GallerySection(),
+                  WhyChooseSection(),
+                  AboutSection(),
+                  FAQSection(),
+                 
+                 
+                ],
+              ),
+            ),
+             CTASection(),
+
               FooterSection(),
-            ],
-          ),
+          ],
         ),
       ),
     );

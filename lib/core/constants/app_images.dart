@@ -6,4 +6,5 @@ class AppImages {
   static const gallery4 = 'assets/images/gallery4.png';
   static const about = 'assets/about.png';
   static const withHeart = 'assets/with_heart.png';
+  static const getStart = 'assets/get_start.png';
 }
