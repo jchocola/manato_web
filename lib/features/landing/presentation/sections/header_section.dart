@@ -1,45 +1,53 @@
 import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 import 'package:manato_web/core/theme/app_colors.dart';
 import 'package:manato_web/core/widgets/app_button.dart';
+import 'package:sizer/sizer.dart';
 
-class HeaderSection extends StatelessWidget {
+class HeaderSection extends StatelessWidget implements PreferredSizeWidget {
   const HeaderSection({super.key});
+
+  @override
+  Size get preferredSize => Size.fromHeight(10.h);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 120,
-        vertical: 24,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.w),
       child: Row(
         children: [
-          const Text(
+           Text(
             'Manato',
             style: TextStyle(
-              fontSize: 28,
+              fontSize: 5.w,
               fontWeight: FontWeight.bold,
               color: AppColors.textDark,
             ),
           ),
 
-          const Spacer(),
+          Gap(10.w),
 
-          Row(
-            children: [
-              _navItem('Home'),
-              _navItem('Features'),
-              _navItem('Pricing'),
-              _navItem('About'),
-            ],
+         // const Spacer(),
+
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: .end,
+                children: [
+                  _navItem('Home'),
+                   _navItem('How is works'),
+                  _navItem('Features'),
+                  _navItem('Pricing'),
+                  _navItem('About'),
+                ],
+              ),
+            ),
           ),
 
-          const SizedBox(width: 32),
+          Gap(2.w),
 
-          AppButton(
-            title: 'Get Started',
-            onTap: () {},
-          ),
+          AppButton(title: 'Get Started', onTap: () {}),
         ],
       ),
     );
@@ -47,13 +55,10 @@ class HeaderSection extends StatelessWidget {
 
   Widget _navItem(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
+      padding:  EdgeInsets.symmetric(horizontal: 1.w),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
     );
   }

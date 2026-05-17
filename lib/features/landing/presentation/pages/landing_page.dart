@@ -29,10 +29,11 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: HeaderSection(),
       body: SingleChildScrollView(
         child: Column(
           children: const [
-            HeaderSection(),
+           // HeaderSection(),
            
             HeroSection(),
              FeaturesBannerSection(),
