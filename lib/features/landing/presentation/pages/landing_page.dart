@@ -10,23 +10,22 @@ import 'package:manato_web/features/landing/presentation/sections/gallery_sectio
 import 'package:manato_web/features/landing/presentation/sections/header_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/hero_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/how_it_work_section.dart';
-import 'package:manato_web/features/landing/presentation/sections/pricing_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/testimonilas_section.dart';
 import 'package:manato_web/features/landing/presentation/sections/why_choose_section.dart';
 import 'package:sizer/sizer.dart';
 
+// Ключи для секций
+final homeKey = GlobalKey();
+final howIsWorksKey = GlobalKey();
+final featureKey = GlobalKey();
+final availableKey = GlobalKey();
+final galleryKey = GlobalKey();
+final aboutKey = GlobalKey();
+final faqKey = GlobalKey();
+
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-  // final homeKey = GlobalKey();
-  // final pricingKey = GlobalKey();
-  // final faqKey = GlobalKey();
-
-  // Scrollable.ensureVisible(
-  //   pricingKey.currentContext!,
-  //   duration: const Duration(milliseconds: 700),
-  //   curve: Curves.easeInOut,
-  // );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,30 +37,37 @@ class LandingPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
                 spacing: 5.w,
-                children: const [
+                children: [
                   // HeaderSection(),
-                  HeroSection(),
+                  HeroSection(key: homeKey),
 
                   FeaturesBannerSection(),
-                  HowItWorksSection(),
-                  FeaturesSection(),
-                  AvailableOnStoresSection(),
+                  HowItWorksSection(key: howIsWorksKey),
+                  FeaturesSection(key: featureKey),
+                  AvailableOnStoresSection(key: availableKey),
                   // PricingSection(),
                   TestimonialsSection(),
-                  GallerySection(),
+                  GallerySection(key: galleryKey),
                 ],
               ),
             ),
 
             Transform.rotate(
               angle: -0.06,
-              child: Column(children: [TemplatesSection(), TemplatesSection()]),
+              child: Column(
+                spacing: 1.w,
+                children: [TemplatesSection(), TemplatesSection()],
+              ),
             ),
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
-                children: [WhyChooseSection(), AboutSection(), FAQSection()],
+                children: [
+                  WhyChooseSection(),
+                  AboutSection(key: aboutKey),
+                  FAQSection(key: faqKey),
+                ],
               ),
             ),
             CTASection(),

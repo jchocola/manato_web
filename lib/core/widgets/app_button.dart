@@ -29,7 +29,7 @@ class AppButton extends StatelessWidget {
         ),
       ),
       onPressed: onTap,
-      child: Text(title),
+      child: Text(title , style: TextStyle(fontSize: 1.4.w),),
     );
   }
 }

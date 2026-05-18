@@ -4,10 +4,24 @@ import 'package:gap/gap.dart';
 import 'package:manato_web/core/constants/app_images.dart';
 import 'package:manato_web/core/theme/app_colors.dart';
 import 'package:manato_web/core/widgets/app_button.dart';
+import 'package:manato_web/features/landing/presentation/pages/landing_page.dart';
 import 'package:sizer/sizer.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({super.key});
+
+  // Функция плавного скролла
+  void scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 1200),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +35,12 @@ class HeroSection extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.w),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
+                  borderRadius: BorderRadius.circular(2.w),
                 ),
-                child: const Text('AI Power at Your Fingertips ✨'),
+                child: Text(
+                  'AI Power at Your Fingertips ✨',
+                  style: TextStyle(fontSize: 1.6.w),
+                ),
               ),
 
               Gap(4.w),
@@ -72,11 +89,21 @@ class HeroSection extends StatelessWidget {
               Row(
                 spacing: 1.w,
                 children: [
-                  AppButton(title: 'Get Started', onTap: () {}),
+                  AppButton(
+                    title: 'Get Started',
+                    onTap: () {
+                      scrollToSection(availableKey);
+                    },
+                  ),
 
                   OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Learn More'),
+                    onPressed: () {
+                      scrollToSection(faqKey);
+                    },
+                    child: Text(
+                      'Learn More',
+                      style: TextStyle(fontSize: 1.4.w),
+                    ),
                   ),
                 ],
               ),

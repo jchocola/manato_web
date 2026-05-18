@@ -69,7 +69,7 @@ class TemplatesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-  height: 23.h,
+  height: 18.h,
       child: InfiniteMarquee(
         speed: 60, // pixels per second; negative for reverse
         itemBuilder: (BuildContext context, int index) {

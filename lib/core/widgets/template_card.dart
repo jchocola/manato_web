@@ -16,7 +16,7 @@ class FantasyTemplateCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 20.w,
-        height: 13.h,
+        height: 15.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1.w),
          
@@ -76,7 +76,7 @@ class FantasyTemplateCard extends StatelessWidget {
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                     child: Container(
-                      padding: EdgeInsets.all(3.w),
+                      padding: EdgeInsets.all(1.5.w),
                       decoration: BoxDecoration(
                         color: theme.colorScheme.surface.withOpacity(0.18),
                         border: Border(
@@ -92,9 +92,9 @@ class FantasyTemplateCard extends StatelessWidget {
                           Row(
                             mainAxisAlignment: .spaceBetween,
                             children: [
-                              Text('Fairy Tale', style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.surface)),
+                              Text('Fairy Tale', style: theme.textTheme.titleSmall?.copyWith(color: theme.colorScheme.surface , fontSize: 1.3.w)),
       
-                               Text('⭐️ 3.5', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface)),
+                               Text('⭐️ 3.5', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface, fontSize: 1.7.w)),
                             
                             ],
                           ),
@@ -102,7 +102,7 @@ class FantasyTemplateCard extends StatelessWidget {
                           /// SUBTITLE
                           Row(
                             children: [
-                               Text('#ierer43', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface)),
+                               Text('#ierer43', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface , fontSize: 1.3.w)),
                               Spacer(),
       
                               /// USERS
@@ -111,7 +111,7 @@ class FantasyTemplateCard extends StatelessWidget {
                                 children: [
                                   Icon(AppIcons.favourite, size: 2.w, color: theme.colorScheme.surface,),
       
-                                  Text('12.3K', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface)),
+                                  Text('12.3K', style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.surface , fontSize: 1.3.w)),
                                 ],
                               ),
                             ],
