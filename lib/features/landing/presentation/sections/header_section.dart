@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:manato_web/core/theme/app_colors.dart';
@@ -5,13 +7,8 @@ import 'package:manato_web/core/widgets/app_button.dart';
 import 'package:manato_web/features/landing/presentation/pages/landing_page.dart';
 import 'package:sizer/sizer.dart';
 
-enum LandingSection {
-  home,
-  howItWorks,
-  features,
-  about,
-  faq,
-}
+enum LandingSection { home, howItWorks, features, about, faq }
+
 class HeaderSection extends StatefulWidget implements PreferredSizeWidget {
   const HeaderSection({super.key});
   @override
@@ -22,8 +19,7 @@ class HeaderSection extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _HeaderSectionState extends State<HeaderSection> {
-
-     LandingSection currentSection = LandingSection.home;
+  LandingSection currentSection = LandingSection.home;
 
   // Функция плавного скролла
   void scrollToSection(GlobalKey key) {
@@ -38,24 +34,22 @@ class _HeaderSectionState extends State<HeaderSection> {
     }
   }
 
-  void selectSection(
-  LandingSection section,
-  GlobalKey key,
-) {
-  setState(() {
-    currentSection = section;
-  });
+  void selectSection(LandingSection section, GlobalKey key) {
+    setState(() {
+      currentSection = section;
+      log(currentSection.toString());
+    });
 
-  final context = key.currentContext;
+    final context = key.currentContext;
 
-  if (context != null) {
-    Scrollable.ensureVisible(
-      context,
-      duration: const Duration(milliseconds: 1200),
-      curve: Curves.easeInOut,
-    );
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 1200),
+        curve: Curves.easeInOut,
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +85,16 @@ class _HeaderSectionState extends State<HeaderSection> {
                   navItem(
                     title: 'How is works',
                     onTap: () {
-                      scrollToSection(howIsWorksKey);
+                        selectSection(LandingSection.howItWorks, howIsWorksKey);
                     },
+                    isPicked: currentSection == LandingSection.howItWorks,
                   ),
                   navItem(
                     title: 'Features',
                     onTap: () {
-                      scrollToSection(featureKey);
+                       selectSection(LandingSection.features, featureKey);
                     },
+                    isPicked: currentSection == LandingSection.features,
                   ),
                   // navItem(
                   //   title: 'Pricing',
@@ -109,14 +105,16 @@ class _HeaderSectionState extends State<HeaderSection> {
                   navItem(
                     title: 'About',
                     onTap: () {
-                      scrollToSection(aboutKey);
+                         selectSection(LandingSection.about, aboutKey);
                     },
+                    isPicked: currentSection == LandingSection.about,
                   ),
                   navItem(
                     title: 'FAQs',
                     onTap: () {
-                      scrollToSection(faqKey);
+                        selectSection(LandingSection.faq, faqKey);
                     },
+                    isPicked: currentSection == LandingSection.faq,
                   ),
                 ],
               ),
@@ -138,7 +136,12 @@ class _HeaderSectionState extends State<HeaderSection> {
 }
 
 class navItem extends StatelessWidget {
-  const navItem({super.key, this.title = 'title', this.onTap, this.isPicked = false});
+  const navItem({
+    super.key,
+    this.title = 'title',
+    this.onTap,
+    this.isPicked = false,
+  });
   final String title;
   final void Function()? onTap;
   final bool isPicked;
@@ -150,10 +153,14 @@ class navItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 1.w),
         child: Text(
           title,
-          
-          style: TextStyle(fontSize: 1.5.w, fontWeight: FontWeight.w500 , decoration: TextDecoration.combine([
-            isPicked ? TextDecoration.underline : TextDecoration.none
-          ])),
+
+          style: TextStyle(
+            fontSize: 1.5.w,
+            fontWeight:  isPicked ? FontWeight.bold: FontWeight.w500,
+            decoration: TextDecoration.combine([
+              isPicked ? TextDecoration.underline : TextDecoration.none,
+            ]),
+          ),
         ),
       ),
     );
