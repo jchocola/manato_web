@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
 class SideMenuBar extends StatelessWidget {
@@ -12,30 +13,33 @@ class SideMenuBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      
       children: [
-        CircleAvatar(),
+        ShadAvatar('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlhrCmPbw6iL1qMKM_1_kXM4CequV1AlfFzQ&s' , fit: .cover,),
         Divider(),
 
         Expanded(
           child: Column(
-            crossAxisAlignment: .center,
+            crossAxisAlignment: .end,
+
             spacing: 2.w,
             children: [
-              ElevatedButton(
+
+              ShadButton(
                 onPressed: () {
                   navigationShell.goBranch(0);
                 },
                 child: Text('Templates'),
               ),
               Divider(),
-              ElevatedButton(
+              ShadButton(
                 onPressed: () {
                   navigationShell.goBranch(1);
                 },
                 child: Text('Groups'),
               ),
               Divider(),
-              ElevatedButton(
+              ShadButton(
                 onPressed: () {
                   navigationShell.goBranch(2);
                 },
@@ -45,11 +49,11 @@ class SideMenuBar extends StatelessWidget {
           ),
         ),
 
-        IconButton(
+        ShadButton(
           onPressed: () {
             context.read<UserBloc>().add(UserBlocEventLogOut());
           },
-          icon: Icon(Icons.login),
+          leading: Icon(Icons.login),
         ),
       ],
     );

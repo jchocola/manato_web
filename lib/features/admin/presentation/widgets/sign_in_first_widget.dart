@@ -5,7 +5,7 @@ import 'package:manato_web/core/utils/show_snack_bar.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_state.dart';
-import 'package:manato_web/shared/widgets/custom_text_fields.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
 class SignInFirstWidget extends StatefulWidget {
@@ -34,36 +34,60 @@ class _SignInFirstWidgetState extends State<SignInFirstWidget> {
           showCustomSnackbar(context, title: state.error);
         }
       },
-      child: SizedBox(
-        width: 50.w,
-        height: 50.h,
-        child: Card(
-          child: Padding(
-            padding: .all(2.w),
-            child: Column(
-              mainAxisSize: .min,
-              children: [
-                Text('Please sign in first'),
-                Flexible(child: CustomTextFields(controller: emailConroller)),
-                Flexible(
-                  child: CustomTextFields(controller: passwordController),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<UserBloc>().add(
-                      UserBlocEventLogin(
-                        email: emailConroller.text,
-                        password: passwordController.text,
-                      ),
-                    );
-                  },
-                  child: Text('Sign In'),
-                ),
-              ],
-            ),
-          ),
+
+      child: ShadCard(
+        height: 40.h,
+        width: 40.w,
+        footer: ShadButton(
+          child: Text('Sign In'),
+          onPressed: () {
+            context.read<UserBloc>().add(
+              UserBlocEventLogin(
+                email: emailConroller.text,
+                password: passwordController.text,
+              ),
+            );
+          },
+        ),
+        title: Text('Please sign in first'),
+        child: Column(
+          spacing: 1.w,
+          children: [
+            ShadInput(controller: emailConroller, placeholder: Text('Email'),),
+            ShadInput(controller: passwordController , placeholder: Text('Password'),),
+          ],
         ),
       ),
+      // child: SizedBox(
+      //   width: 50.w,
+      //   height: 50.h,
+      //   child: Card(
+      //     child: Padding(
+      //       padding: .all(2.w),
+      //       child: Column(
+      //         mainAxisSize: .min,
+      //         children: [
+      //           Text('Please sign in first'),
+      //           Flexible(child: CustomTextFields(controller: emailConroller)),
+      //           Flexible(
+      //             child: CustomTextFields(controller: passwordController),
+      //           ),
+      //           ElevatedButton(
+      //             onPressed: () {
+      //               context.read<UserBloc>().add(
+      //                 UserBlocEventLogin(
+      //                   email: emailConroller.text,
+      //                   password: passwordController.text,
+      //                 ),
+      //               );
+      //             },
+      //             child: Text('Sign In'),
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

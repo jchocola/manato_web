@@ -8,6 +8,7 @@ import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
 import 'package:manato_web/firebase_options.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -33,21 +34,24 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Sizer(
-        builder: (context, orientation, screenType) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'Manato',
-          theme: AppTheme.lightTheme,
-          routerConfig: router,
-          builder: (context, child) {
-            return ResponsiveBreakpoints.builder(
-              child: child!,
-              breakpoints: const [
-                Breakpoint(start: 0, end: 600, name: MOBILE),
-                Breakpoint(start: 601, end: 1024, name: TABLET),
-                Breakpoint(start: 1025, end: 1920, name: DESKTOP),
-              ],
-            );
-          },
+        builder: (context, orientation, screenType) => ShadApp.custom(
+
+          appBuilder:(context)=> MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Manato',
+            theme: AppTheme.lightTheme,
+            routerConfig: router,
+            builder: (context, child) {
+              return ResponsiveBreakpoints.builder(
+                child: child!,
+                breakpoints: const [
+                  Breakpoint(start: 0, end: 600, name: MOBILE),
+                  Breakpoint(start: 601, end: 1024, name: TABLET),
+                  Breakpoint(start: 1025, end: 1920, name: DESKTOP),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
