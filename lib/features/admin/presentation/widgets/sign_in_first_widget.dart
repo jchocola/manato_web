@@ -1,27 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manato_web/core/utils/show_snack_bar.dart';
+import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
+import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
+import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_state.dart';
 import 'package:manato_web/shared/widgets/custom_text_fields.dart';
 import 'package:sizer/sizer.dart';
 
-class SignInFirstWidget extends StatelessWidget {
+class SignInFirstWidget extends StatefulWidget {
   const SignInFirstWidget({super.key});
 
   @override
+  State<SignInFirstWidget> createState() => _SignInFirstWidgetState();
+}
+
+class _SignInFirstWidgetState extends State<SignInFirstWidget> {
+  final emailConroller = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailConroller.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 30.w,
-      height: 50.h,
-      child: Card(
-        child: Padding(
-          padding: .all(2.w),
-          child: Column(
-            mainAxisSize: .min,
-            children: [
-              Text('Please sign in first'),
-              Flexible(child: CustomTextFields()),
-              Flexible(child: CustomTextFields()),
-              ElevatedButton(onPressed: () {}, child: Text('Sign In')),
-            ],
+    return BlocListener<UserBloc, UserBlocState>(
+      listener: (context, state) {
+        if (state is UserBlocStateError) {
+          showCustomSnackbar(context, title: state.error);
+        }
+      },
+      child: SizedBox(
+        width: 50.w,
+        height: 50.h,
+        child: Card(
+          child: Padding(
+            padding: .all(2.w),
+            child: Column(
+              mainAxisSize: .min,
+              children: [
+                Text('Please sign in first'),
+                Flexible(child: CustomTextFields(controller: emailConroller)),
+                Flexible(
+                  child: CustomTextFields(controller: passwordController),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<UserBloc>().add(
+                      UserBlocEventLogin(
+                        email: emailConroller.text,
+                        password: passwordController.text,
+                      ),
+                    );
+                  },
+                  child: Text('Sign In'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

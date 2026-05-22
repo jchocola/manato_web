@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
+import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
 import 'package:sizer/sizer.dart';
 
 class SideMenuBar extends StatelessWidget {
@@ -15,7 +18,6 @@ class SideMenuBar extends StatelessWidget {
 
         Expanded(
           child: Column(
-          
             crossAxisAlignment: .center,
             spacing: 2.w,
             children: [
@@ -43,7 +45,12 @@ class SideMenuBar extends StatelessWidget {
           ),
         ),
 
-        IconButton(onPressed: () {}, icon:Icon( Icons.login)),
+        IconButton(
+          onPressed: () {
+            context.read<UserBloc>().add(UserBlocEventLogOut());
+          },
+          icon: Icon(Icons.login),
+        ),
       ],
     );
   }
