@@ -24,7 +24,7 @@ class BasicInfoSection extends StatelessWidget {
               //TEMPLATE ID
               Expanded(child: Row(
                 children: [
-                  CustomInput(title: 'Template ID'),
+                  Flexible(child: CustomInput(title: 'Template ID')),
                   ShadButton.ghost(child: Icon(Icons.grid_goldenratio_rounded),)
                 ],
               )),

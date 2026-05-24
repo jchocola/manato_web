@@ -23,9 +23,9 @@ class CreateTemplatePage extends StatelessWidget {
         child: Column(
           spacing: 1.w,
           children: [
-            BasicInfoSection(),
-            ContentPromptSection(),
-            SettingsSection(),
+          BasicInfoSection(),
+             ContentPromptSection(),
+             SettingsSection(),
             ShadButton(child: Text('Save template'),)
           ],
         ),
