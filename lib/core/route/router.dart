@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin/presentation/pages/admin_page_appshell.dart';
-import 'package:manato_web/features/admin/presentation/pages/groups_page.dart';
-import 'package:manato_web/features/admin/presentation/pages/tags_page.dart';
+import 'package:manato_web/features/admin/presentation/pages/category_page.dart';
+import 'package:manato_web/features/admin/presentation/pages/special_tags_page.dart';
 import 'package:manato_web/features/admin/presentation/pages/templates_page.dart';
 import 'package:manato_web/features/admin_templates/presentation/pages/create_template_page.dart';
 import 'package:manato_web/features/admin_templates/presentation/pages/edit_template_page.dart';
@@ -25,7 +25,7 @@ final router = GoRouter(
                   path: '/create_template',
                   builder: (context, state) => const CreateTemplatePage(),
                 ),
-                 GoRoute(
+                GoRoute(
                   path: '/edit_template',
                   builder: (context, state) => const EidtTemplatePage(),
                 ),
@@ -38,7 +38,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/groups',
-              builder: (context, state) => const GroupsPage(),
+              builder: (context, state) => const CategoryPage(),
             ),
           ],
         ),
@@ -46,7 +46,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/tags',
-              builder: (context, state) => const TagsPage(),
+              builder: (context, state) => const SpecialTagsPage(),
             ),
           ],
         ),

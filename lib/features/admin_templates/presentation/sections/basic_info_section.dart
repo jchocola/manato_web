@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/shared/widgets/custom_input.dart';
+import 'package:manato_web/shared/widgets/custom_textarea.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,25 +19,30 @@ class BasicInfoSection extends StatelessWidget {
             spacing: 1.w,
             children: [
               // TEMPLATE NAME
-              Expanded(child: ShadInput()),
+              Expanded(child: CustomInput(title: 'Template Name')),
 
               //TEMPLATE ID
-              Expanded(child: ShadInput()),
+              Expanded(child: Row(
+                children: [
+                  CustomInput(title: 'Template ID'),
+                  ShadButton.ghost(child: Icon(Icons.grid_goldenratio_rounded),)
+                ],
+              )),
             ],
           ),
 
+          // DESCRIPTION
+          CustomTextArea(title: 'Description'),
 
-            // DESCRIPTION
-          ConstrainedBox(
-  constraints: const BoxConstraints(maxHeight: 400),
-  child: const ShadTextarea(
-    placeholder: Text('Type your message here'),
-  ),
-),
-
-
-             // TAG
-          ShadInput(),
+          // TAG
+          CustomInput(title: 'Tags'),
+             Row(
+            spacing: 1.w,
+            children: List.generate(
+              5,
+              (index) => ShadBadge(child: Text(index.toString())),
+            ),
+          ),
         ],
       ),
     );

@@ -36,14 +36,14 @@ class SideMenuBar extends StatelessWidget {
                 onPressed: () {
                   navigationShell.goBranch(1);
                 },
-                child: Text('Groups'),
+                child: Text('Categories'),
               ),
               Divider(),
               ShadButton(
                 onPressed: () {
                   navigationShell.goBranch(2);
                 },
-                child: Text('Tags'),
+                child: Text('Spec. Tags'),
               ),
             ],
           ),

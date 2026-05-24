@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/shared/widgets/custom_input.dart';
+import 'package:manato_web/shared/widgets/custom_select.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,21 +20,20 @@ class SettingsSection extends StatelessWidget {
             children: [
               // CATEGORY
               Expanded(
-                child: ShadSelect(
-                  optionsBuilder: (context, index)=> Text(index.toString()),
-                  selectedOptionBuilder: (context, index) =>
-                      Text(index.toString()),
-                ),
+                child: CustomSelect(title: 'Category',)
+              ),
+
+               //TEMPLATE ID
+              Expanded(
+                child: CustomSelect(title: 'Special Tag',)
               ),
 
               //TEMPLATE ID
-              Expanded( child: ShadSelect(
-                  optionsBuilder: (context, index)=> Text(index.toString()),
-                  selectedOptionBuilder: (context, index) =>
-                      Text(index.toString()),
-                ),),
+              Expanded(
+                child: CustomSelect(title: 'Stars',)
+              ),
 
-              Expanded(child: ShadInput()),
+              Expanded(child: CustomInput(title: 'Used',)),
             ],
           ),
         ],
