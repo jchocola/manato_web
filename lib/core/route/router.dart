@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin/presentation/pages/admin_page_appshell.dart';
-import 'package:manato_web/features/admin/presentation/pages/category_page.dart';
-import 'package:manato_web/features/admin/presentation/pages/special_tags_page.dart';
+import 'package:manato_web/features/admin_category/presentation/pages/category_page.dart';
+import 'package:manato_web/features/admin_tag/presentation/pages/special_tags_page.dart';
 import 'package:manato_web/features/admin/presentation/pages/templates_page.dart';
 import 'package:manato_web/features/admin_templates/presentation/pages/create_template_page.dart';
 import 'package:manato_web/features/admin_templates/presentation/pages/edit_template_page.dart';
@@ -37,7 +37,7 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/groups',
+              path: '/category',
               builder: (context, state) => const CategoryPage(),
             ),
           ],
