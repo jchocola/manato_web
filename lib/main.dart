@@ -6,6 +6,8 @@ import 'package:manato_web/core/di/di.dart';
 import 'package:manato_web/core/route/router.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
+import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
+import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc_event.dart';
 import 'package:manato_web/firebase_options.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -32,11 +34,14 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserBloc>(
           create: (context) => sl<UserBloc>()..add(UserBlocEventLoadUser()),
         ),
+        BlocProvider<CategoryBloc>(
+          create: (context) =>
+              sl<CategoryBloc>()..add(CategoryBlocEventGetCategoryList()),
+        ),
       ],
       child: Sizer(
         builder: (context, orientation, screenType) => ShadApp.custom(
-
-          appBuilder:(context)=> MaterialApp.router(
+          appBuilder: (context) => MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Manato',
             theme: AppTheme.lightTheme,
