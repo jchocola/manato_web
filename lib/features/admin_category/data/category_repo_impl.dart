@@ -4,17 +4,19 @@ import 'package:manato_web/features/admin_category/domain/category_repository.da
 import 'package:manato_web/main.dart';
 
 class CategoryRepoImpl implements CategoryRepository {
-  final firebaseStore = FirebaseFirestore.instance.collection('Categories');
+  CategoryRepoImpl({required this.firestoreRef});
+
+  final CollectionReference<Map<String, dynamic>> firestoreRef;
   @override
   Future<void> createNewCategory({required CategoryModel category}) async {
     try {
       logger.i('Create category');
 
       if (category.id.isEmpty) {
-        final docRef = await firebaseStore.add(category.toMap());
+        final docRef = await firestoreRef.add(category.toMap());
         await docRef.update({'id': docRef.id});
       } else {
-        await firebaseStore.doc(category.id).set(category.toMap());
+        await firestoreRef.doc(category.id).set(category.toMap());
       }
     } catch (e) {
       logger.e(e);
@@ -25,7 +27,7 @@ class CategoryRepoImpl implements CategoryRepository {
   @override
   Future<void> deleteCategory({required CategoryModel category}) async {
     try {
-      await firebaseStore.doc(category.id).delete();
+      await firestoreRef.doc(category.id).delete();
     } catch (e) {
       logger.e(e);
       rethrow;
@@ -36,7 +38,7 @@ class CategoryRepoImpl implements CategoryRepository {
   Future<List<CategoryModel>> getCategoriesList() async {
     try {
       logger.i('Get category list');
-      final docs = await firebaseStore.get();
+      final docs = await firestoreRef.get();
       final list = docs.docs
           .map((d) => CategoryModel.fromMap(d.data()))
           .toList();
@@ -50,7 +52,7 @@ class CategoryRepoImpl implements CategoryRepository {
   @override
   Future<void> updateCategory({required CategoryModel category}) async {
     try {
-      await firebaseStore.doc(category.id).update(category.toMap());
+      await firestoreRef.doc(category.id).update(category.toMap());
     } catch (e) {
       logger.e(e);
       rethrow;
