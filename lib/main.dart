@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +18,20 @@ import 'package:url_strategy/url_strategy.dart';
 import 'core/theme/app_theme.dart';
 
 final logger = Logger();
+
+
+
 void main() async {
   setPathUrlStrategy();
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseFirestore.instance.settings = const Settings(
+    sslEnabled: true,
+    persistenceEnabled: false,
+    webExperimentalForceLongPolling: true,
+   ); 
   await DI();
   runApp(const MyApp());
 }

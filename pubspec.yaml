@@ -50,6 +50,7 @@ dependencies:
   logger: ^2.7.0
   shadcn_ui: ^0.53.6
   cloud_firestore: ^6.4.1
+  cloud_firestore_web: ^5.4.1
 
 dev_dependencies:
   flutter_test:

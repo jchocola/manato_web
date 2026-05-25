@@ -8,7 +8,14 @@ class CategoryRepoImpl implements CategoryRepository {
   @override
   Future<void> createNewCategory({required CategoryModel category}) async {
     try {
-      await firebaseStore.doc(category.id).set(category.toMap());
+      logger.i('Create category');
+
+      if (category.id.isEmpty) {
+        final docRef = await firebaseStore.add(category.toMap());
+        await docRef.update({'id': docRef.id});
+      } else {
+        await firebaseStore.doc(category.id).set(category.toMap());
+      }
     } catch (e) {
       logger.e(e);
       rethrow;
@@ -28,8 +35,9 @@ class CategoryRepoImpl implements CategoryRepository {
   @override
   Future<List<CategoryModel>> getCategoriesList() async {
     try {
+      logger.i('Get category list');
       final docs = await firebaseStore.get();
-        final list = docs.docs
+      final list = docs.docs
           .map((d) => CategoryModel.fromMap(d.data()))
           .toList();
       return list;

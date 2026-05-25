@@ -1,1 +1,14 @@
-{"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"manatostudio-ai","configurations":{"web":"1:87276064333:web:a511e8878fa4e8c03a1604"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "manatostudio-ai",
+          "configurations": {
+            "web": "1:87276064333:web:a511e8878fa4e8c03a1604"
+          }
+        }
+      }
+    }
+  }
+}

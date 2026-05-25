@@ -61,4 +61,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'manatostudio-ai.firebasestorage.app',
     measurementId: 'G-SBHM0RRWFQ',
   );
+
 }
