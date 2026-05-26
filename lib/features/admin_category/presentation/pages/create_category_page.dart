@@ -17,6 +17,7 @@ class CreateCategoryPage extends StatefulWidget {
 class _CreateCategoryPageState extends State<CreateCategoryPage> {
   final categoryTitleController = TextEditingController();
   final categoryIDController = TextEditingController();
+  final iconStrController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,12 +30,15 @@ class _CreateCategoryPageState extends State<CreateCategoryPage> {
             controller: categoryTitleController,
           ),
           CustomInput(title: 'Category ID', controller: categoryIDController),
+
+          CustomInput(title: 'Icon Str',controller: iconStrController,),
           ShadButton(
             child: Text('Create'),
             onPressed: () {
               final CategoryModel model = CategoryModel(
                 id: categoryIDController.text,
                 title: categoryTitleController.text,
+                iconStr: iconStrController.text
               );
 
               context.read<CategoryBloc>().add(

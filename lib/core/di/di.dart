@@ -7,21 +7,22 @@ import 'package:manato_web/features/admin/presentation/domain/auth_repository.da
 import 'package:manato_web/features/admin_category/data/category_repo_impl.dart';
 import 'package:manato_web/features/admin_category/domain/category_repository.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
+import 'package:manato_web/features/admin_category/presentation/blocs/category_info_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 
 final sl = GetIt.instance;
 Future<void> DI() async {
-
-
- final firebaseApp =  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final firebaseApp = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   FirebaseFirestore.instance.settings = const Settings(
     sslEnabled: true,
     persistenceEnabled: false,
     webExperimentalForceLongPolling: true,
-   ); 
+  );
 
-    final firestore =  FirebaseFirestore.instanceFor(
-    app: firebaseApp, 
+  final firestore = FirebaseFirestore.instanceFor(
+    app: firebaseApp,
     databaseId: 'default', // Имя вашей базы без скобок
   );
 
@@ -30,7 +31,9 @@ Future<void> DI() async {
   ///
 
   sl.registerSingleton<AuthRepository>(FirebaseAuthRepoImpl());
-  sl.registerSingleton<CategoryRepository>(CategoryRepoImpl(firestoreRef: firestore.collection('Categories')));
+  sl.registerSingleton<CategoryRepository>(
+    CategoryRepoImpl(firestoreRef: firestore.collection('Categories')),
+  );
 
   ///
   /// BLOCS
@@ -39,7 +42,11 @@ Future<void> DI() async {
     () => UserBloc(authRepository: sl<AuthRepository>()),
   );
 
-    sl.registerLazySingleton<CategoryBloc>(
+  sl.registerLazySingleton<CategoryBloc>(
     () => CategoryBloc(categoryRepository: sl<CategoryRepository>()),
+  );
+
+  sl.registerLazySingleton<CategoryInfoBloc>(
+    () => CategoryInfoBloc(categoryRepository: sl<CategoryRepository>()),
   );
 }

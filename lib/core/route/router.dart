@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin/presentation/pages/admin_page_appshell.dart';
+import 'package:manato_web/features/admin_category/presentation/pages/category_detail_page.dart';
 import 'package:manato_web/features/admin_category/presentation/pages/category_page.dart';
 import 'package:manato_web/features/admin_tag/presentation/pages/special_tags_page.dart';
 import 'package:manato_web/features/admin/presentation/pages/templates_page.dart';
@@ -39,6 +40,12 @@ final router = GoRouter(
             GoRoute(
               path: '/category',
               builder: (context, state) => const CategoryPage(),
+              routes: [
+               GoRoute(
+              path: '/category_detail',
+              builder: (context, state) => const CategoryDetailPage(),
+            ), 
+              ]
             ),
           ],
         ),

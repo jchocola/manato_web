@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:manato_web/features/admin_category/presentation/pages/create_category_page.dart';
 import 'package:manato_web/features/admin_category/presentation/sections/category_section.dart';
+import 'package:manato_web/features/admin_category/presentation/sections/uncategoried_templates_section.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({super.key});
@@ -26,6 +28,14 @@ class CategoryPage extends StatelessWidget {
   }
 
   Widget webBody(BuildContext context) {
-    return SingleChildScrollView(child: Column(children: [CategorySection()]));
+    return Row(
+      spacing: 1.w,
+      crossAxisAlignment: .start,
+      children: [
+        Expanded(flex: 2, child: CategorySection()),
+        Divider(),
+        Expanded(flex: 1, child: UncategoriedTemplatesSection()),
+      ],
+    );
   }
 }

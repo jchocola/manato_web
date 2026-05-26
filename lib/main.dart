@@ -9,6 +9,7 @@ import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_event.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc_event.dart';
+import 'package:manato_web/features/admin_category/presentation/blocs/category_info_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -45,6 +46,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               sl<CategoryBloc>()..add(CategoryBlocEventGetCategoryList()),
         ),
+        BlocProvider<CategoryInfoBloc>(
+          create: (context) =>
+              sl<CategoryInfoBloc>(),
+        ), 
       ],
       child: Sizer(
         builder: (context, orientation, screenType) => ShadApp.custom(
