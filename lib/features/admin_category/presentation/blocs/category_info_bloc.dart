@@ -38,6 +38,9 @@ class CategoryInfoBlocStatePicked extends CategoryInfoBlocState {
     required this.category,
     this.templates = const [],
   });
+
+  @override
+  List<Object?> get props => [category,templates];
 }
 
 class CategoryInfoBlocEventError extends CategoryInfoBlocState {

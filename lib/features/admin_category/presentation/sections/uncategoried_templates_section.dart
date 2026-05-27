@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/shared/widgets/category_listile.dart';
 import 'package:manato_web/shared/widgets/template_card.dart';
 
 class UncategoriedTemplatesSection extends StatelessWidget {
@@ -21,7 +22,7 @@ class _uncategoriedTemplates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemBuilder: (context, index) => TemplateCard(),
+      itemBuilder: (context, index) => TemplateListile(),
       separatorBuilder: (context, index) => Divider(),
       itemCount: 30,
     );
