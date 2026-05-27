@@ -8,6 +8,10 @@ import 'package:manato_web/features/admin_category/data/category_repo_impl.dart'
 import 'package:manato_web/features/admin_category/domain/category_repository.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_info_bloc.dart';
+import 'package:manato_web/features/admin_tag/data/tag_repo_impl.dart';
+import 'package:manato_web/features/admin_tag/domain/tag_repository.dart';
+import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc.dart';
+import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 
 final sl = GetIt.instance;
@@ -35,6 +39,10 @@ Future<void> DI() async {
     CategoryRepoImpl(firestoreRef: firestore.collection('Categories')),
   );
 
+  sl.registerSingleton<TagRepository>(
+    TagRepoImpl(tagStoreRef: firestore.collection('Tags')),
+  );
+
   ///
   /// BLOCS
   ///
@@ -48,5 +56,13 @@ Future<void> DI() async {
 
   sl.registerLazySingleton<CategoryInfoBloc>(
     () => CategoryInfoBloc(categoryRepository: sl<CategoryRepository>()),
+  );
+
+  sl.registerLazySingleton<TagsBloc>(
+    () => TagsBloc(tagRepository: sl<TagRepository>()),
+  );
+
+  sl.registerLazySingleton<PickedTagBloc>(
+    () => PickedTagBloc(tagRepository: sl<TagRepository>()),
   );
 }

@@ -10,6 +10,8 @@ import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc_event.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_info_bloc.dart';
+import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc.dart';
+import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -20,13 +22,10 @@ import 'core/theme/app_theme.dart';
 
 final logger = Logger();
 
-
-
 void main() async {
   setPathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
-
 
   await DI();
   runApp(const MyApp());
@@ -47,9 +46,16 @@ class MyApp extends StatelessWidget {
               sl<CategoryBloc>()..add(CategoryBlocEventGetCategoryList()),
         ),
         BlocProvider<CategoryInfoBloc>(
-          create: (context) =>
-              sl<CategoryInfoBloc>(),
-        ), 
+          create: (context) => sl<CategoryInfoBloc>(),
+        ),
+
+         BlocProvider<TagsBloc>(
+          create: (context) => sl<TagsBloc>()..add(TagsBlocEventLoadTags()),
+        ),
+
+        BlocProvider<PickedTagBloc>(
+          create: (context) => sl<PickedTagBloc>(),
+        ),
       ],
       child: Sizer(
         builder: (context, orientation, screenType) => ShadApp.custom(
