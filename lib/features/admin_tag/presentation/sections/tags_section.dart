@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
 import 'package:manato_web/features/admin_tag/presentation/pages/edit_tag_modal.dart';
@@ -26,6 +27,9 @@ class TagSection extends StatelessWidget {
               final tag = state.tags[index];
               return TagCard(
                 tag: tag,
+                onTap: () {
+                  context.go('/tags/tag_detail');
+                },
                 onDeletePressed: () {
                   context.read<TagsBloc>().add(
                     TagsBlocEventDeleteTag(tag: tag),
@@ -33,7 +37,9 @@ class TagSection extends StatelessWidget {
                 },
 
                 onEditPressed: () {
-                  context.read<PickedTagBloc>().add(PickedTagBlocEventPickedEditingTag(tag: tag));
+                  context.read<PickedTagBloc>().add(
+                    PickedTagBlocEventPickedEditingTag(tag: tag),
+                  );
                   showModalBottomSheet(
                     showDragHandle: true,
                     context: context,

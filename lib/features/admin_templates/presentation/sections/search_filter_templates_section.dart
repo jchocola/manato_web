@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin/presentation/widgets/search_by_group_filter.dart';
 import 'package:manato_web/features/admin/presentation/widgets/search_result_info_section.dart';
+import 'package:manato_web/features/admin_templates/presentation/sections/template_status_filter_section.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,6 +20,7 @@ class SearchFilterTemplatesSection extends StatelessWidget {
             spacing: 1.w,
             children: [
               Flexible(child: ShadInput(leading: Icon(Icons.search))),
+               TemplateStatusFilterSection(),
               ShadButton.destructive(
                 child: Icon(Icons.add),
                 onPressed: () {
@@ -27,6 +29,8 @@ class SearchFilterTemplatesSection extends StatelessWidget {
               ),
             ],
           ),
+   
+
           SearchResultInfoSection(),
           SearchByGroupFilter(),
         ],

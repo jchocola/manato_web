@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-class TemplateModel extends Equatable {
+class TemplateModel  extends Equatable{
   final String id;
   final String title;
   final String subtitle;
@@ -14,8 +14,12 @@ class TemplateModel extends Equatable {
   final String thumbnailImageUrl;
   final String beforeImageUrl;
   final String afterImageUrl;
-  final String category;
-  final bool visibility;
+
+  @override
+  List<Object?> get props => [
+    id,title,subtitle,rating,used,tags,parameters,prompt,thumbnailImageUrl,beforeImageUrl,afterImageUrl
+  ];
+
   const TemplateModel({
     required this.id,
     required this.title,
@@ -28,25 +32,23 @@ class TemplateModel extends Equatable {
     required this.thumbnailImageUrl,
     required this.beforeImageUrl,
     required this.afterImageUrl,
-    required this.category,
-    this.visibility = true
   });
 
-  @override
-  List<Object?> get props => [
-    id,
-    title,
-    subtitle,
-    rating,
-    used,
-    tags,
-    parameters,
-    prompt,
-    thumbnailImageUrl,
-    beforeImageUrl,
-    afterImageUrl,
-    visibility
-  ];
+
+
+  // TemplateEntity toEntity() => TemplateEntity(
+  //   id: id,
+  //   title: title,
+  //   subtitle: subtitle,
+  //   rating: rating,
+  //   used: used,
+  //   tags: tags,
+  //   parameters: parameters,
+  //   prompt: prompt,
+  //   thumbnailImageUrl: thumbnailImageUrl,
+  //   beforeImageUrl: beforeImageUrl,
+  //   afterImageUrl: afterImageUrl,
+  // );
 
   Map<String, dynamic> toMap() {
     return {
@@ -61,7 +63,6 @@ class TemplateModel extends Equatable {
       'thumbnailImageUrl': thumbnailImageUrl,
       'beforeImageUrl': beforeImageUrl,
       'afterImageUrl': afterImageUrl,
-       'visibility': visibility,
     };
   }
 
@@ -78,8 +79,6 @@ class TemplateModel extends Equatable {
       thumbnailImageUrl: map['thumbnailImageUrl'] ?? '',
       beforeImageUrl: map['beforeImageUrl'] ?? '',
       afterImageUrl: map['afterImageUrl'] ?? '',
-      category: '',
-      visibility:map['visibility'] ?? false 
     );
   }
 
@@ -87,35 +86,4 @@ class TemplateModel extends Equatable {
 
   factory TemplateModel.fromJson(String source) =>
       TemplateModel.fromMap(json.decode(source));
-
-  TemplateModel copyWith({
-    String? id,
-    String? title,
-    String? subtitle,
-    double? rating,
-    int? used,
-    List<String>? tags,
-    Map<String, String>? parameters,
-    String? prompt,
-    String? thumbnailImageUrl,
-    String? beforeImageUrl,
-    String? afterImageUrl,
-    bool? visibility
-  }) {
-    return TemplateModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      subtitle: subtitle ?? this.subtitle,
-      rating: rating ?? this.rating,
-      used: used ?? this.used,
-      tags: tags ?? this.tags,
-      parameters: parameters ?? this.parameters,
-      prompt: prompt ?? this.prompt,
-      thumbnailImageUrl: thumbnailImageUrl ?? this.thumbnailImageUrl,
-      beforeImageUrl: beforeImageUrl ?? this.beforeImageUrl,
-      afterImageUrl: afterImageUrl ?? this.afterImageUrl,
-      category: '',
-      visibility: visibility ?? this.visibility
-    );
-  }
 }
