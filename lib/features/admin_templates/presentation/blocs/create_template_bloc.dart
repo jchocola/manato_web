@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:manato_web/core/utils/id_gererator.dart';
 import 'package:manato_web/features/admin/presentation/data/models/template_model.dart';
+import 'package:manato_web/features/admin_templates/domain/storage_repository.dart';
 import 'package:manato_web/features/admin_templates/domain/template_repository.dart';
 import 'package:manato_web/main.dart';
 
@@ -129,29 +131,48 @@ class CreateTemplateBloc
   final TextEditingController parameterKeyController = TextEditingController();
   final TextEditingController parameterValueController =
       TextEditingController();
+  final TextEditingController usedCountController = TextEditingController();
+
+  String? selectedCategoryId;
+  String? selectedSpecialTagId;
+  String? rating;
 
   List<String> tags = [];
   Map<String, String> parameters = {};
 
   final TemplateRepository templateRepository;
-  CreateTemplateBloc({required this.templateRepository})
-    : super(CreateTemplateBlocStateInitial()) {
+  final StorageRepository storageRepository;
+  CreateTemplateBloc({
+    required this.templateRepository,
+    required this.storageRepository,
+  }) : super(CreateTemplateBlocStateInitial()) {
     on<CreateTemplateBlocEventCreateTemplate>((event, emit) async {
       try {
         logger.i('Create new template');
+
+        final id = templateId.text;
+
+        final thumbnailUrl = await storageRepository
+            .uploadImageToStorageReturnDownloadUrl(
+              bytes: 
+                (state as CreateTemplateBlocStateInitial).thumbnailImageBytes!,
+              folder: 'Templates',
+              id: id,
+            );
+
         final TemplateModel template = TemplateModel(
-          id: templateId.text,
+          id: id,
           title: templateName.text,
           subtitle: templateDescription.text,
-          rating: 5,
-          used: 0,
+          rating: double.tryParse(rating ?? '5') ?? 5,
+          used: int.tryParse(usedCountController.text) ?? 0,
           tags: tags,
           parameters: parameters,
           prompt: promptController.text,
-          thumbnailImageUrl: '',
+          thumbnailImageUrl: thumbnailUrl,
           beforeImageUrl: '',
           afterImageUrl: '',
-          category: '',
+          category: selectedCategoryId ?? '',
         );
         await templateRepository.createTemplate(model: template);
       } catch (e) {
@@ -351,6 +372,9 @@ class CreateTemplateBloc
     templateDescription.dispose();
     promptController.dispose();
     tagController.dispose();
+    usedCountController.dispose();
+    parameterKeyController.dispose();
+    parameterValueController.dispose();
     return super.close();
   }
 }

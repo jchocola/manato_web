@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 
 
 abstract class StorageRepository {
   Future<String> uploadImageToStorageReturnDownloadUrl({
-   required File imageFile,
+    required Uint8List bytes,
     String folder = 'Templates',
     required String id,
   });

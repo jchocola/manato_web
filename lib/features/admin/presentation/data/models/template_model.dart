@@ -15,6 +15,7 @@ class TemplateModel extends Equatable {
   final String beforeImageUrl;
   final String afterImageUrl;
   final String category;
+  final String specialTag;
   final bool visibility;
   const TemplateModel({
     required this.id,
@@ -29,7 +30,8 @@ class TemplateModel extends Equatable {
     required this.beforeImageUrl,
     required this.afterImageUrl,
     required this.category,
-    this.visibility = true
+    this.visibility = true,
+    this.specialTag = '',
   });
 
   @override
@@ -45,7 +47,9 @@ class TemplateModel extends Equatable {
     thumbnailImageUrl,
     beforeImageUrl,
     afterImageUrl,
-    visibility
+    visibility,
+    category,
+    specialTag,
   ];
 
   Map<String, dynamic> toMap() {
@@ -61,7 +65,9 @@ class TemplateModel extends Equatable {
       'thumbnailImageUrl': thumbnailImageUrl,
       'beforeImageUrl': beforeImageUrl,
       'afterImageUrl': afterImageUrl,
-       'visibility': visibility,
+      'visibility': visibility,
+      'category': category,
+      'specialTag': specialTag,
     };
   }
 
@@ -78,8 +84,9 @@ class TemplateModel extends Equatable {
       thumbnailImageUrl: map['thumbnailImageUrl'] ?? '',
       beforeImageUrl: map['beforeImageUrl'] ?? '',
       afterImageUrl: map['afterImageUrl'] ?? '',
-      category: '',
-      visibility:map['visibility'] ?? false 
+      category: map['category'] ?? '',
+      visibility: map['visibility'] ?? false,
+      specialTag: map['specialTag'] ?? '',
     );
   }
 
@@ -100,7 +107,9 @@ class TemplateModel extends Equatable {
     String? thumbnailImageUrl,
     String? beforeImageUrl,
     String? afterImageUrl,
-    bool? visibility
+    bool? visibility,
+    String? category,
+    String? specialTag,
   }) {
     return TemplateModel(
       id: id ?? this.id,
@@ -114,8 +123,9 @@ class TemplateModel extends Equatable {
       thumbnailImageUrl: thumbnailImageUrl ?? this.thumbnailImageUrl,
       beforeImageUrl: beforeImageUrl ?? this.beforeImageUrl,
       afterImageUrl: afterImageUrl ?? this.afterImageUrl,
-      category: '',
-      visibility: visibility ?? this.visibility
+      category: category ?? this.category,
+      visibility: visibility ?? this.visibility,
+      specialTag: specialTag ?? this.specialTag,
     );
   }
 }

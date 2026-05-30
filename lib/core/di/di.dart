@@ -12,7 +12,9 @@ import 'package:manato_web/features/admin_tag/data/tag_repo_impl.dart';
 import 'package:manato_web/features/admin_tag/domain/tag_repository.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
+import 'package:manato_web/features/admin_templates/data/firebase_storage_repo_impl.dart';
 import 'package:manato_web/features/admin_templates/data/template_repo_impl.dart';
+import 'package:manato_web/features/admin_templates/domain/storage_repository.dart';
 import 'package:manato_web/features/admin_templates/domain/template_repository.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/create_template_bloc.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
@@ -51,6 +53,10 @@ Future<void> DI() async {
     TemplateRepoImpl(templateRef: firestore.collection('Templates')),
   );
 
+   sl.registerSingleton<StorageRepository>(
+    FirebaseStorageRepoImpl(),
+  );
+
   ///
   /// BLOCS
   ///
@@ -79,6 +85,6 @@ Future<void> DI() async {
   );
 
     sl.registerLazySingleton<CreateTemplateBloc>(
-    () => CreateTemplateBloc(templateRepository: sl<TemplateRepository>()),
+    () => CreateTemplateBloc(templateRepository: sl<TemplateRepository>() , storageRepository: sl<StorageRepository>()),
   );
 }
