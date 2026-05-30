@@ -27,16 +27,51 @@ class ContentPromptSection extends StatelessWidget {
           ),
 
           // BEFOR AFTER THUMBNAIL
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: .spaceAround,
-              children: [
-                PickedImageCard(),
-                PickedImageCard(),
-                PickedImageCard(),
-              ],
-            ),
+          BlocBuilder<CreateTemplateBloc, CreateTemplateBlocState>(
+            builder: (context, state) {
+              if (state is CreateTemplateBlocStateInitial) {
+                return Row(
+                  spacing: 1.w,
+                  mainAxisAlignment: .spaceAround,
+                  children: [
+                    PickedImageCard(
+                      title: 'Before',
+                      pickedImage: state.beforeImageBytes,
+                      onPressed: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventPickBeforeImage(),
+                      ),
+                    ),
+                    PickedImageCard(
+                      title: 'After',
+                      pickedImage: state.afterImageBytes,
+                       onPressed: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventPickAfterImage(),
+                      ),
+                    ),
+                    PickedImageCard(
+                      title: 'Thumbnail',
+                      pickedImage: state.thumbnailImageBytes,
+                       onPressed: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventPickThumbnailImage(),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    spacing: 1.w,
+                    mainAxisAlignment: .spaceAround,
+                    children: [
+                      PickedImageCard(title: 'Before'),
+                      PickedImageCard(title: 'After'),
+                      PickedImageCard(title: 'Thumbnail'),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
 
           Row(
@@ -95,7 +130,9 @@ class ParametersSection extends StatelessWidget {
             state.length,
             (index) => ParameterCard(
               onPressed: () => context.read<CreateTemplateBloc>().add(
-                CreateTemplateBlocEventRemoveParameter(key: state.keys.elementAt(index)),
+                CreateTemplateBlocEventRemoveParameter(
+                  key: state.keys.elementAt(index),
+                ),
               ),
               key: ValueKey(state.keys.elementAt(index)),
               parameterKey: state.keys.elementAt(index),

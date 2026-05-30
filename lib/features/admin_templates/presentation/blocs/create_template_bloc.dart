@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:manato_web/core/utils/id_gererator.dart';
 import 'package:manato_web/features/admin/presentation/data/models/template_model.dart';
 import 'package:manato_web/features/admin_templates/domain/template_repository.dart';
@@ -40,6 +44,13 @@ class CreateTemplateBlocEventRemoveParameter extends CreateTemplateBlocEvent {
   List<Object?> get props => [key];
 }
 
+class CreateTemplateBlocEventPickBeforeImage extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventPickAfterImage extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventPickThumbnailImage
+    extends CreateTemplateBlocEvent {}
+
 ///
 /// STATE
 ///
@@ -51,10 +62,41 @@ abstract class CreateTemplateBlocState extends Equatable {
 class CreateTemplateBlocStateInitial extends CreateTemplateBlocState {
   final List<String> tags;
   final Map<String, String> parameters;
-  CreateTemplateBlocStateInitial({this.tags = const [], this.parameters = const {}});
+  final Uint8List? thumbnailImageBytes;
+  final Uint8List? beforeImageBytes;
+  final Uint8List? afterImageBytes;
+  CreateTemplateBlocStateInitial({
+    this.tags = const [],
+    this.parameters = const {},
+    this.thumbnailImageBytes,
+    this.beforeImageBytes,
+    this.afterImageBytes,
+  });
 
   @override
-  List<Object?> get props => [tags, parameters];
+  List<Object?> get props => [
+    tags,
+    parameters,
+    thumbnailImageBytes,
+    beforeImageBytes,
+    afterImageBytes,
+  ];
+
+  CreateTemplateBlocStateInitial copyWith({
+    List<String>? tags,
+    Map<String, String>? parameters,
+    Uint8List? thumbnailImageBytes,
+    Uint8List? beforeImageBytes,
+    Uint8List? afterImageBytes,
+  }) {
+    return CreateTemplateBlocStateInitial(
+      tags: tags ?? this.tags,
+      parameters: parameters ?? this.parameters,
+      thumbnailImageBytes: thumbnailImageBytes ?? this.thumbnailImageBytes,
+      beforeImageBytes: beforeImageBytes ?? this.beforeImageBytes,
+      afterImageBytes: afterImageBytes ?? this.afterImageBytes,
+    );
+  }
 }
 
 ///
@@ -68,7 +110,8 @@ class CreateTemplateBloc
   final TextEditingController promptController = TextEditingController();
   final TextEditingController tagController = TextEditingController();
   final TextEditingController parameterKeyController = TextEditingController();
-  final TextEditingController parameterValueController = TextEditingController();
+  final TextEditingController parameterValueController =
+      TextEditingController();
 
   List<String> tags = [];
   Map<String, String> parameters = {};
@@ -111,13 +154,23 @@ class CreateTemplateBloc
       parameterKeyController.clear();
       parameterValueController.clear();
 
-      emit(CreateTemplateBlocStateInitial(tags: List.from(tags), parameters: Map.from(parameters)));
+      emit(
+        CreateTemplateBlocStateInitial(
+          tags: List.from(tags),
+          parameters: Map.from(parameters),
+          thumbnailImageBytes:
+              (state as CreateTemplateBlocStateInitial).thumbnailImageBytes,
+          beforeImageBytes:
+              (state as CreateTemplateBlocStateInitial).beforeImageBytes,
+          afterImageBytes:
+              (state as CreateTemplateBlocStateInitial).afterImageBytes,
+        ),
+      );
     });
 
     on<CreateTemplateBlocEventGenerateId>((event, emit) {
       logger.i('Generate template ID');
       templateId.text = IDGenerator();
-   
     });
 
     on<CreateTemplateBlocEventAddTag>((event, emit) {
@@ -127,7 +180,18 @@ class CreateTemplateBloc
         logger.i('Current tags: $tags');
         tagController.clear();
         final newTags = List<String>.from(tags);
-        emit(CreateTemplateBlocStateInitial(tags: newTags , parameters: Map.from(parameters)));
+        emit(
+          CreateTemplateBlocStateInitial(
+            tags: newTags,
+            parameters: Map.from(parameters),
+            thumbnailImageBytes:
+                (state as CreateTemplateBlocStateInitial).thumbnailImageBytes,
+            beforeImageBytes:
+                (state as CreateTemplateBlocStateInitial).beforeImageBytes,
+            afterImageBytes:
+                (state as CreateTemplateBlocStateInitial).afterImageBytes,
+          ),
+        );
       }
     });
 
@@ -136,19 +200,42 @@ class CreateTemplateBloc
       if (event.index >= 0 && event.index < tags.length) {
         tags.removeAt(event.index);
         final newTags = List<String>.from(tags);
-        emit(CreateTemplateBlocStateInitial(tags: newTags , parameters: Map.from(parameters)));
+        emit(
+          CreateTemplateBlocStateInitial(
+            tags: newTags,
+            parameters: Map.from(parameters),
+            thumbnailImageBytes:
+                (state as CreateTemplateBlocStateInitial).thumbnailImageBytes,
+            beforeImageBytes:
+                (state as CreateTemplateBlocStateInitial).beforeImageBytes,
+            afterImageBytes:
+                (state as CreateTemplateBlocStateInitial).afterImageBytes,
+          ),
+        );
       }
     });
 
     on<CreateTemplateBlocEventAddParameter>((event, emit) {
       logger.i('Add parameter');
-      if (parameterKeyController.text.isNotEmpty && parameterValueController.text.isNotEmpty) {
+      if (parameterKeyController.text.isNotEmpty &&
+          parameterValueController.text.isNotEmpty) {
         parameters[parameterKeyController.text] = parameterValueController.text;
         logger.i('Current parameters: $parameters');
         parameterKeyController.clear();
         parameterValueController.clear();
         final newParameters = Map<String, String>.from(parameters);
-        emit(CreateTemplateBlocStateInitial(tags: List.from(tags), parameters: newParameters));
+        emit(
+          CreateTemplateBlocStateInitial(
+            tags: List.from(tags),
+            parameters: newParameters,
+            thumbnailImageBytes:
+                (state as CreateTemplateBlocStateInitial).thumbnailImageBytes,
+            beforeImageBytes:
+                (state as CreateTemplateBlocStateInitial).beforeImageBytes,
+            afterImageBytes:
+                (state as CreateTemplateBlocStateInitial).afterImageBytes,
+          ),
+        );
       }
     });
 
@@ -156,7 +243,63 @@ class CreateTemplateBloc
       logger.i('Remove parameter');
       parameters.remove(event.key);
       final newParameters = Map<String, String>.from(parameters);
-      emit(CreateTemplateBlocStateInitial(tags: List.from(tags), parameters: newParameters));
+      emit(
+        CreateTemplateBlocStateInitial(
+          tags: List.from(tags),
+          parameters: newParameters,
+        ),
+      );
+    });
+
+    on<CreateTemplateBlocEventPickBeforeImage>((event, emit) async {
+      logger.i('Pick before image');
+      FilePickerResult? result = await FilePicker.pickFiles(
+        allowMultiple: false,
+        withData: true,
+      );
+      if (result != null && result.files.isNotEmpty) {
+        // FilePicker with `withData: true` returns bytes on web and native.
+        final Uint8List? bytes = result.files.first.bytes;
+
+        final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+          beforeImageBytes: bytes,
+        );
+        emit(newState);
+      }
+    });
+
+      on<CreateTemplateBlocEventPickAfterImage>((event, emit) async {
+      logger.i('Pick after image');
+      FilePickerResult? result = await FilePicker.pickFiles(
+        allowMultiple: false,
+        withData: true,
+      );
+      if (result != null && result.files.isNotEmpty) {
+        // FilePicker with `withData: true` returns bytes on web and native.
+        final Uint8List? bytes = result.files.first.bytes;
+
+        final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+          afterImageBytes: bytes,
+        );
+        emit(newState);
+      }
+    });
+
+      on<CreateTemplateBlocEventPickThumbnailImage>((event, emit) async {
+      logger.i('Pick thumbnail image');
+      FilePickerResult? result = await FilePicker.pickFiles(
+        allowMultiple: false,
+        withData: true,
+      );
+      if (result != null && result.files.isNotEmpty) {
+        // FilePicker with `withData: true` returns bytes on web and native.
+        final Uint8List? bytes = result.files.first.bytes;
+
+        final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+          thumbnailImageBytes: bytes,
+        );
+        emit(newState);
+      }
     });
   }
 
