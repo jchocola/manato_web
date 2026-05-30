@@ -12,6 +12,7 @@ import 'package:manato_web/features/admin_category/presentation/blocs/category_b
 import 'package:manato_web/features/admin_category/presentation/blocs/category_info_bloc.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
+import 'package:manato_web/features/admin_templates/presentation/blocs/create_template_bloc.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -61,6 +62,10 @@ class MyApp extends StatelessWidget {
 
         BlocProvider<TemplatesBloc>(
           create: (context) => sl<TemplatesBloc>()..add(TemplatesBlocLoadTemplates()),
+        ),
+
+         BlocProvider<CreateTemplateBloc>(
+          create: (context) => sl<CreateTemplateBloc>(),
         ),
 
       ],

@@ -51,6 +51,7 @@ dependencies:
   shadcn_ui: ^0.53.6
   cloud_firestore: ^6.4.1
   cloud_firestore_web: ^5.4.1
+  uuid: ^4.5.3
 
 dev_dependencies:
   flutter_test:

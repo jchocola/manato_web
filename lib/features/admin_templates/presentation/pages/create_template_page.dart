@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manato_web/features/admin_templates/presentation/blocs/create_template_bloc.dart';
 import 'package:manato_web/features/admin_templates/presentation/sections/basic_info_section.dart';
 import 'package:manato_web/features/admin_templates/presentation/sections/content_prompt_section.dart';
 import 'package:manato_web/features/admin_templates/presentation/sections/settings_section.dart';
@@ -26,7 +28,7 @@ class CreateTemplatePage extends StatelessWidget {
           BasicInfoSection(),
              ContentPromptSection(),
              SettingsSection(),
-            ShadButton(child: Text('Save template'),)
+            ShadButton(child: Text('Save template'),onPressed: ()=> context.read<CreateTemplateBloc>().add(CreateTemplateBlocEventCreateTemplate()),)
           ],
         ),
       ),

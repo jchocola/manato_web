@@ -14,6 +14,7 @@ import 'package:manato_web/features/admin_tag/presentation/blocs/picked_tag_bloc
 import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
 import 'package:manato_web/features/admin_templates/data/template_repo_impl.dart';
 import 'package:manato_web/features/admin_templates/domain/template_repository.dart';
+import 'package:manato_web/features/admin_templates/presentation/blocs/create_template_bloc.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
 import 'package:manato_web/firebase_options.dart';
 
@@ -75,5 +76,9 @@ Future<void> DI() async {
 
   sl.registerLazySingleton<TemplatesBloc>(
     () => TemplatesBloc(templateRepository: sl<TemplateRepository>()),
+  );
+
+    sl.registerLazySingleton<CreateTemplateBloc>(
+    () => CreateTemplateBloc(templateRepository: sl<TemplateRepository>()),
   );
 }
