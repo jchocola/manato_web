@@ -18,8 +18,8 @@ class TemplateCard extends StatelessWidget {
             Image.network(
               template?.thumbnailImageUrl ?? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlhrCmPbw6iL1qMKM_1_kXM4CequV1AlfFzQ&s',
               width: 15.w,
-              height: 15.w,
-              fit: .cover,
+              height: 18.w,
+              fit: .contain,
             ),
 
             Column(

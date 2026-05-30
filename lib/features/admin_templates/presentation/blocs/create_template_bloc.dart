@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
@@ -61,6 +60,30 @@ class CreateTemplateBlocEventRemovePickAfterImage
 
 class CreateTemplateBlocEventRemovePickThumbnailImage
     extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventSetCategory extends CreateTemplateBlocEvent {
+  final String categoryId;
+
+  CreateTemplateBlocEventSetCategory({required this.categoryId});
+  @override
+  List<Object?> get props => [categoryId];
+}   
+
+class CreateTemplateBlocEventSetSpecialTag extends CreateTemplateBlocEvent {
+  final String specialTagId;
+
+  CreateTemplateBlocEventSetSpecialTag({required this.specialTagId});
+  @override
+  List<Object?> get props => [specialTagId];
+}
+
+class CreateTemplateBlocEventSetRating extends CreateTemplateBlocEvent {
+  final String rating;
+
+  CreateTemplateBlocEventSetRating({required this.rating});
+  @override
+  List<Object?> get props => [rating];
+}
 
 ///
 /// STATE
@@ -151,14 +174,41 @@ class CreateTemplateBloc
         logger.i('Create new template');
 
         final id = templateId.text;
+        String? thumbnailUrl;
+        String? beforeImageUrl;
+        String? afterImageUrl;
 
-        final thumbnailUrl = await storageRepository
-            .uploadImageToStorageReturnDownloadUrl(
-              bytes: 
-                (state as CreateTemplateBlocStateInitial).thumbnailImageBytes!,
-              folder: 'Templates',
-              id: id,
-            );
+        if (state is CreateTemplateBlocStateInitial) {
+          final currentState = state as CreateTemplateBlocStateInitial;
+          if (currentState.thumbnailImageBytes != null) {
+            thumbnailUrl = await storageRepository
+                .uploadImageToStorageReturnDownloadUrl(
+                  bytes: currentState.thumbnailImageBytes!,
+                  folder: 'Templates',
+                  id: id,
+                );
+          }
+
+           if (currentState.beforeImageBytes != null) {
+            beforeImageUrl = await storageRepository
+                .uploadImageToStorageReturnDownloadUrl(
+                  bytes: currentState.beforeImageBytes!,
+                  folder: 'Templates',
+                  id: id,
+                );
+          }
+
+           if (currentState.afterImageBytes != null) {
+            afterImageUrl = await storageRepository
+                .uploadImageToStorageReturnDownloadUrl(
+                  bytes: currentState.afterImageBytes!,
+                  folder: 'Templates',
+                  id: id,
+                );
+          }
+        }
+
+    
 
         final TemplateModel template = TemplateModel(
           id: id,
@@ -170,9 +220,11 @@ class CreateTemplateBloc
           parameters: parameters,
           prompt: promptController.text,
           thumbnailImageUrl: thumbnailUrl,
-          beforeImageUrl: '',
-          afterImageUrl: '',
+          beforeImageUrl: beforeImageUrl,
+          afterImageUrl: afterImageUrl,
           category: selectedCategoryId ?? '',
+          specialTag: selectedSpecialTagId ?? '',
+          
         );
         await templateRepository.createTemplate(model: template);
       } catch (e) {
@@ -362,6 +414,21 @@ class CreateTemplateBloc
         thumbnailImageBytes: null,
       );
       emit(newState);
+    });
+
+    on<CreateTemplateBlocEventSetCategory>((event, emit) {
+      logger.i('Set category: ${event.categoryId}');
+      selectedCategoryId = event.categoryId;
+    });
+
+    on<CreateTemplateBlocEventSetSpecialTag>((event, emit) {
+      logger.i('Set special tag: ${event.specialTagId}');
+      selectedSpecialTagId = event.specialTagId;
+    });
+
+    on<CreateTemplateBlocEventSetRating>((event, emit) {
+      logger.i('Set rating: ${event.rating}');
+      rating = event.rating;
     });
   }
 

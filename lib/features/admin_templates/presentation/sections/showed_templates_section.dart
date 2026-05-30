@@ -17,7 +17,7 @@ class ShowedTemplatesSection extends StatelessWidget {
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              childAspectRatio: 2 / 2.3,
+              childAspectRatio: 2 / 2.5,
               mainAxisSpacing: 1.w,
               crossAxisSpacing: 1.w,
 

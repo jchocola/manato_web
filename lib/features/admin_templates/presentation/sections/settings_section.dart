@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc.dart';
 import 'package:manato_web/features/admin_category/presentation/blocs/category_bloc_state.dart';
 import 'package:manato_web/features/admin_tag/presentation/blocs/tags_bloc.dart';
+import 'package:manato_web/features/admin_templates/presentation/blocs/create_template_bloc.dart';
 import 'package:manato_web/main.dart';
 import 'package:manato_web/shared/widgets/custom_input.dart';
 import 'package:manato_web/shared/widgets/custom_select.dart';
@@ -31,6 +32,9 @@ class SettingsSection extends StatelessWidget {
                   title: 'Category',
                   onChanged: (value) {
                     logger.i('Selected category: $value');
+                    context.read<CreateTemplateBloc>().add(
+                      CreateTemplateBlocEventSetCategory(categoryId:  value ?? ''),
+                    );
                   },
                   options: categoryBloc.state is CategoryBlocStateLoaded
                       ? (categoryBloc.state as CategoryBlocStateLoaded)
@@ -45,6 +49,12 @@ class SettingsSection extends StatelessWidget {
               Expanded(
                 child: CustomSelect(
                   title: 'Special Tag',
+                  onChanged: (value) {
+                    logger.i('Selected special tag: $value');
+                    context.read<CreateTemplateBloc>().add(
+                      CreateTemplateBlocEventSetSpecialTag(specialTagId: value ?? ''),
+                    );
+                  },
                   options: specialTagsBloc.state is TagsBlocStateLoaded
                       ? (specialTagsBloc.state as TagsBlocStateLoaded).tags
                             .map((e) => e.id)
@@ -57,11 +67,17 @@ class SettingsSection extends StatelessWidget {
               Expanded(
                 child: CustomSelect(
                   title: 'Stars',
+                  onChanged: (value) {
+                    logger.i('Selected rating: $value');
+                    context.read<CreateTemplateBloc>().add(
+                      CreateTemplateBlocEventSetRating(rating: value ?? ''),
+                    );
+                  },
                   options: ['1', '2', '3', '4', '5'],
                 ),
               ),
 
-              Expanded(child: CustomInput(title: 'Used')),
+              Expanded(child: CustomInput(title: 'Used' , controller: context.read<CreateTemplateBloc>().usedCountController,)),
             ],
           ),
         ],

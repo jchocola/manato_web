@@ -11,9 +11,9 @@ class TemplateModel extends Equatable {
   final List<String> tags;
   final Map<String, String> parameters;
   final String prompt;
-  final String thumbnailImageUrl;
-  final String beforeImageUrl;
-  final String afterImageUrl;
+  final String? thumbnailImageUrl;
+  final String? beforeImageUrl;
+  final String? afterImageUrl;
   final String category;
   final String specialTag;
   final bool visibility;
