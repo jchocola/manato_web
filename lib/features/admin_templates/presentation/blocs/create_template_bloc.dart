@@ -51,6 +51,15 @@ class CreateTemplateBlocEventPickAfterImage extends CreateTemplateBlocEvent {}
 class CreateTemplateBlocEventPickThumbnailImage
     extends CreateTemplateBlocEvent {}
 
+class CreateTemplateBlocEventRemovePickBeforeImage
+    extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventRemovePickAfterImage
+    extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventRemovePickThumbnailImage
+    extends CreateTemplateBlocEvent {}
+
 ///
 /// STATE
 ///
@@ -85,19 +94,27 @@ class CreateTemplateBlocStateInitial extends CreateTemplateBlocState {
   CreateTemplateBlocStateInitial copyWith({
     List<String>? tags,
     Map<String, String>? parameters,
-    Uint8List? thumbnailImageBytes,
-    Uint8List? beforeImageBytes,
-    Uint8List? afterImageBytes,
+    Object? thumbnailImageBytes = _copyWithSentinel,
+    Object? beforeImageBytes = _copyWithSentinel,
+    Object? afterImageBytes = _copyWithSentinel,
   }) {
     return CreateTemplateBlocStateInitial(
       tags: tags ?? this.tags,
       parameters: parameters ?? this.parameters,
-      thumbnailImageBytes: thumbnailImageBytes ?? this.thumbnailImageBytes,
-      beforeImageBytes: beforeImageBytes ?? this.beforeImageBytes,
-      afterImageBytes: afterImageBytes ?? this.afterImageBytes,
+      thumbnailImageBytes: identical(thumbnailImageBytes, _copyWithSentinel)
+          ? this.thumbnailImageBytes
+          : thumbnailImageBytes as Uint8List?,
+      beforeImageBytes: identical(beforeImageBytes, _copyWithSentinel)
+          ? this.beforeImageBytes
+          : beforeImageBytes as Uint8List?,
+      afterImageBytes: identical(afterImageBytes, _copyWithSentinel)
+          ? this.afterImageBytes
+          : afterImageBytes as Uint8List?,
     );
   }
 }
+
+const _copyWithSentinel = Object();
 
 ///
 /// BLOC
@@ -268,7 +285,7 @@ class CreateTemplateBloc
       }
     });
 
-      on<CreateTemplateBlocEventPickAfterImage>((event, emit) async {
+    on<CreateTemplateBlocEventPickAfterImage>((event, emit) async {
       logger.i('Pick after image');
       FilePickerResult? result = await FilePicker.pickFiles(
         allowMultiple: false,
@@ -285,7 +302,7 @@ class CreateTemplateBloc
       }
     });
 
-      on<CreateTemplateBlocEventPickThumbnailImage>((event, emit) async {
+    on<CreateTemplateBlocEventPickThumbnailImage>((event, emit) async {
       logger.i('Pick thumbnail image');
       FilePickerResult? result = await FilePicker.pickFiles(
         allowMultiple: false,
@@ -300,6 +317,30 @@ class CreateTemplateBloc
         );
         emit(newState);
       }
+    });
+
+    on<CreateTemplateBlocEventRemovePickBeforeImage>((event, emit) {
+      logger.i('Remove picked before image');
+      final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+        beforeImageBytes: null,
+      );
+      emit(newState);
+    });
+
+    on<CreateTemplateBlocEventRemovePickAfterImage>((event, emit) {
+      logger.i('Remove picked after image');
+      final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+        afterImageBytes: null,
+      );
+      emit(newState);
+    });
+
+    on<CreateTemplateBlocEventRemovePickThumbnailImage>((event, emit) {
+      logger.i('Remove picked thumbnail image');
+      final newState = (state as CreateTemplateBlocStateInitial).copyWith(
+        thumbnailImageBytes: null,
+      );
+      emit(newState);
     });
   }
 

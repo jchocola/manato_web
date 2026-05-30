@@ -40,6 +40,9 @@ class ContentPromptSection extends StatelessWidget {
                       onPressed: () => context.read<CreateTemplateBloc>().add(
                         CreateTemplateBlocEventPickBeforeImage(),
                       ),
+                      onDoubleTap: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventRemovePickBeforeImage(),
+                      ),
                     ),
                     PickedImageCard(
                       title: 'After',
@@ -47,12 +50,18 @@ class ContentPromptSection extends StatelessWidget {
                        onPressed: () => context.read<CreateTemplateBloc>().add(
                         CreateTemplateBlocEventPickAfterImage(),
                       ),
+                       onDoubleTap: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventRemovePickAfterImage(),
+                      ),
                     ),
                     PickedImageCard(
                       title: 'Thumbnail',
                       pickedImage: state.thumbnailImageBytes,
                        onPressed: () => context.read<CreateTemplateBloc>().add(
                         CreateTemplateBlocEventPickThumbnailImage(),
+                      ),
+                       onDoubleTap: () => context.read<CreateTemplateBloc>().add(
+                        CreateTemplateBlocEventRemovePickThumbnailImage(),
                       ),
                     ),
                   ],
@@ -129,6 +138,7 @@ class ParametersSection extends StatelessWidget {
           children: List.generate(
             state.length,
             (index) => ParameterCard(
+              
               onPressed: () => context.read<CreateTemplateBloc>().add(
                 CreateTemplateBlocEventRemoveParameter(
                   key: state.keys.elementAt(index),
