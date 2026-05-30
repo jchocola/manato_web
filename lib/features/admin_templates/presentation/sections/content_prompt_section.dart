@@ -21,7 +21,10 @@ class ContentPromptSection extends StatelessWidget {
           Text('Content & Prompt'),
 
           // Prompt
-          CustomTextArea(title: 'Prompt', controller: createTemplateBloc.promptController,),
+          CustomTextArea(
+            title: 'Prompt',
+            controller: createTemplateBloc.promptController,
+          ),
 
           // BEFOR AFTER THUMBNAIL
           SingleChildScrollView(
@@ -38,9 +41,27 @@ class ContentPromptSection extends StatelessWidget {
 
           Row(
             mainAxisAlignment: .spaceBetween,
+            spacing: 1.w,
             children: [
               Text('Parameters'),
-              ShadButton.destructive(child: Icon(Icons.add)),
+              Expanded(
+                flex: 1,
+                child: ShadInput(
+                  controller: createTemplateBloc.parameterKeyController,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: ShadInput(
+                  controller: createTemplateBloc.parameterValueController,
+                ),
+              ),
+              ShadButton.destructive(
+                child: Icon(Icons.add),
+                onPressed: () => createTemplateBloc.add(
+                  CreateTemplateBlocEventAddParameter(),
+                ),
+              ),
             ],
           ),
 
@@ -56,6 +77,34 @@ class ParametersSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(spacing: 1.w, children: [ParameterCard(), ParameterCard()]);
+    return BlocSelector<
+      CreateTemplateBloc,
+      CreateTemplateBlocState,
+      Map<String, String>
+    >(
+      selector: (state) {
+        if (state is CreateTemplateBlocStateInitial) {
+          return state.parameters;
+        }
+        return {};
+      },
+      builder: (context, state) {
+        return Column(
+          spacing: 1.w,
+          children: List.generate(
+            state.length,
+            (index) => ParameterCard(
+              onPressed: () => context.read<CreateTemplateBloc>().add(
+                CreateTemplateBlocEventRemoveParameter(key: state.keys.elementAt(index)),
+              ),
+              key: ValueKey(state.keys.elementAt(index)),
+              parameterKey: state.keys.elementAt(index),
+              parameterValue: state.values.elementAt(index),
+              index: index,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

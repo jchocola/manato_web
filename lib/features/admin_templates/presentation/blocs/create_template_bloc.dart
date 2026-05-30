@@ -30,6 +30,16 @@ class CreateTemplateBlocEventRemoveTag extends CreateTemplateBlocEvent {
   List<Object?> get props => [index];
 }
 
+class CreateTemplateBlocEventAddParameter extends CreateTemplateBlocEvent {}
+
+class CreateTemplateBlocEventRemoveParameter extends CreateTemplateBlocEvent {
+  final String key;
+
+  CreateTemplateBlocEventRemoveParameter({required this.key});
+  @override
+  List<Object?> get props => [key];
+}
+
 ///
 /// STATE
 ///
@@ -128,6 +138,25 @@ class CreateTemplateBloc
         final newTags = List<String>.from(tags);
         emit(CreateTemplateBlocStateInitial(tags: newTags));
       }
+    });
+
+    on<CreateTemplateBlocEventAddParameter>((event, emit) {
+      logger.i('Add parameter');
+      if (parameterKeyController.text.isNotEmpty && parameterValueController.text.isNotEmpty) {
+        parameters[parameterKeyController.text] = parameterValueController.text;
+        logger.i('Current parameters: $parameters');
+        parameterKeyController.clear();
+        parameterValueController.clear();
+        final newParameters = Map<String, String>.from(parameters);
+        emit(CreateTemplateBlocStateInitial(tags: List.from(tags), parameters: newParameters));
+      }
+    });
+
+    on<CreateTemplateBlocEventRemoveParameter>((event, emit) {
+      logger.i('Remove parameter');
+      parameters.remove(event.key);
+      final newParameters = Map<String, String>.from(parameters);
+      emit(CreateTemplateBlocStateInitial(tags: List.from(tags), parameters: newParameters));
     });
   }
 
