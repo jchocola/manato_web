@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
 import 'package:manato_web/shared/widgets/template_card.dart';
+import 'package:sizer/sizer.dart';
 
 class ShowedTemplatesSection extends StatelessWidget {
   const ShowedTemplatesSection({super.key});
@@ -17,6 +18,9 @@ class ShowedTemplatesSection extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 2 / 2.3,
+              mainAxisSpacing: 1.w,
+              crossAxisSpacing: 1.w,
+
             ),
             itemCount: state.allList.length,
 
@@ -24,6 +28,7 @@ class ShowedTemplatesSection extends StatelessWidget {
               onTap: () {
                 context.go('/templates/edit_template');
               },
+              template: state.allList[index],
             ),
           );
         } else {

@@ -85,8 +85,8 @@ class CreateTemplateBloc
           subtitle: templateDescription.text,
           rating: 5,
           used: 0,
-          tags: [],
-          parameters: {},
+          tags: tags,
+          parameters: parameters,
           prompt: promptController.text,
           thumbnailImageUrl: '',
           beforeImageUrl: '',
@@ -127,7 +127,7 @@ class CreateTemplateBloc
         logger.i('Current tags: $tags');
         tagController.clear();
         final newTags = List<String>.from(tags);
-        emit(CreateTemplateBlocStateInitial(tags: newTags));
+        emit(CreateTemplateBlocStateInitial(tags: newTags , parameters: Map.from(parameters)));
       }
     });
 
@@ -136,7 +136,7 @@ class CreateTemplateBloc
       if (event.index >= 0 && event.index < tags.length) {
         tags.removeAt(event.index);
         final newTags = List<String>.from(tags);
-        emit(CreateTemplateBlocStateInitial(tags: newTags));
+        emit(CreateTemplateBlocStateInitial(tags: newTags , parameters: Map.from(parameters)));
       }
     });
 

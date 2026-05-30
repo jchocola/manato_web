@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:manato_web/features/admin/presentation/data/models/template_model.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
 class TemplateCard extends StatelessWidget {
-  const TemplateCard({super.key, this.onTap});
-   final void Function()? onTap;
+  const TemplateCard({super.key, this.onTap, this.template});
+  final void Function()? onTap;
+  final TemplateModel? template;
   @override
   Widget build(BuildContext context) {
-   
     return GestureDetector(
       onTap: onTap,
       child: ShadCard(
@@ -20,12 +21,12 @@ class TemplateCard extends StatelessWidget {
               height: 15.w,
               fit: .cover,
             ),
-      
+
             Column(
               crossAxisAlignment: .start,
               children: [
-                Text('Name'),
-                Text('#sfhs'),
+                Text(template?.title ?? 'Template Name'),
+                Text('#${template?.id ?? 'id'}'),
                 Row(
                   children: [
                     ShadButton.ghost(
@@ -38,13 +39,23 @@ class TemplateCard extends StatelessWidget {
                     ),
                   ],
                 ),
-      
-      
-                ShadSwitch(value: true , label: Text('Activity'), height: 1.h, width: 4.w,),
+
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ShadSwitch(
+                    value: template?.visibility ?? false,
+                    label: Text('Activity'),
+                    height: 2.h,
+                    width: 4.w,
+                  ),
+                ),
                 Wrap(
                   spacing: 1.w,
-                  children: List.generate(5, (index)=> ShadBadge.outline(child: Text(index.toString()))),
-                )
+                  children: List.generate(
+                    template?.tags.length ?? 0,
+                    (index) => ShadBadge.outline(child: Text(template!.tags[index])),
+                  ),
+                ),
               ],
             ),
           ],
