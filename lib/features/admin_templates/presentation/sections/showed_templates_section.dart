@@ -14,8 +14,11 @@ class ShowedTemplatesSection extends StatelessWidget {
     return BlocBuilder<TemplatesBloc, TemplatesBlocState>(
       builder: (context, state) {
         if (state is TemplatesBlocStateLoaded) {
-
-            final showingList = state.state == TemplatesViewState.activated ? state.activatedList : state.state == TemplatesViewState.all ? state.allList : state.deactivatedList;
+          final showingList = state.state == TemplatesViewState.activated
+              ? state.activatedList
+              : state.state == TemplatesViewState.all
+              ? state.allList
+              : state.deactivatedList;
 
           return GridView.builder(
             shrinkWrap: true,
@@ -24,17 +27,23 @@ class ShowedTemplatesSection extends StatelessWidget {
               childAspectRatio: 2 / 3,
               mainAxisSpacing: 1.w,
               crossAxisSpacing: 1.w,
-
             ),
-            itemCount:  showingList.length,
+            itemCount: showingList.length,
 
             itemBuilder: (context, index) => TemplateCard(
               onTap: () {
                 context.go('/templates/edit_template');
               },
               template: showingList[index],
+              onDeleteTap: () => context.read<TemplatesBloc>().add(
+                TemplatesBlocEventDeleteTemplate(template: showingList[index]),
+              ),
               onCheckBoxChanged: (value) {
-               context.read<TemplatesBloc>().add(TemplatesBlocEventToogleVisibleTemplate(template: showingList[index]));
+                context.read<TemplatesBloc>().add(
+                  TemplatesBlocEventToogleVisibleTemplate(
+                    template: showingList[index],
+                  ),
+                );
               },
             ),
           );

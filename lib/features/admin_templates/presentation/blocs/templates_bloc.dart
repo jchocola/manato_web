@@ -189,5 +189,17 @@ class TemplatesBloc extends Bloc<TemplatesBlocEvent, TemplatesBlocState> {
         add(TemplatesBlocLoadTemplates());
       }
     });  
+
+
+    on<TemplatesBlocEventDeleteTemplate>((event, emit) async {
+      try {
+        await templateRepository.deleteTemplate(model:  event.template);
+      } catch (e) {
+        logger.e(e);
+        emit(TemplatesBlocStateError());
+      } finally {
+        add(TemplatesBlocLoadTemplates());
+      }
+    });
   }
 }

@@ -4,10 +4,17 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:sizer/sizer.dart';
 
 class TemplateCard extends StatelessWidget {
-  const TemplateCard({super.key, this.onTap, this.template , this.onCheckBoxChanged});
+  const TemplateCard({
+    super.key,
+    this.onTap,
+    this.template,
+    this.onCheckBoxChanged,
+    this.onDeleteTap
+  });
   final void Function()? onTap;
   final TemplateModel? template;
   final void Function(bool)? onCheckBoxChanged;
+  final void Function()? onDeleteTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,25 +22,55 @@ class TemplateCard extends StatelessWidget {
       child: ShadCard(
         padding: EdgeInsets.all(1.w),
         child: Column(
+          spacing: 1.w,
           children: [
             Expanded(
               flex: 3,
-              child: Image.network(
-                template?.thumbnailImageUrl ??
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlhrCmPbw6iL1qMKM_1_kXM4CequV1AlfFzQ&s',
-                width: 15.w,
-                height: 18.w,
-                fit: .contain,
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Image.network(
+                    template?.thumbnailImageUrl ??
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlhrCmPbw6iL1qMKM_1_kXM4CequV1AlfFzQ&s',
+                    width: 15.w,
+                    height: 18.w,
+                    fit: .contain,
+                  ),
+
+                  PopupMenuButton(itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text('Edit'),
+                    ),
+                    PopupMenuItem(
+                        onTap: onDeleteTap,
+                      child: Text('Delete'),
+                    
+                    ),
+                  ], child: Icon(Icons.more_vert_rounded))
+                ],
               ),
             ),
 
             Expanded(
               flex: 2,
               child: Column(
+                spacing: 0.5.w,
                 crossAxisAlignment: .start,
                 children: [
-                  Text(template?.title ?? 'Template Name'),
-                  Text('#${template?.id ?? 'id'}'),
+                  Row(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      Text(
+                        template?.title ?? 'Template Name',
+                        style: TextStyle(fontSize: 1.5.w),
+                      ),
+                      Text(
+                        '#${template?.id ?? 'id'}',
+                        style: TextStyle(fontSize: 1.w),
+                      ),
+                    ],
+                  ),
+
                   Row(
                     children: [
                       ShadButton.ghost(
@@ -51,18 +88,23 @@ class TemplateCard extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: ShadSwitch(
                       value: template?.visibility ?? false,
-                      label: Text('Activity'),
-                      height: 2.h,
+                      label: Text(
+                        template?.visibility == true ? 'Active' : 'Inactive',
+                      ),
+                      height: 2.5.h,
                       width: 4.w,
                       onChanged: onCheckBoxChanged,
                     ),
                   ),
-                  Wrap(
-                    spacing: 1.w,
-                    children: List.generate(
-                      template?.tags.length ?? 0,
-                      (index) =>
-                          ShadBadge.outline(child: Text(template!.tags[index])),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      spacing: 1.w,
+                      children: List.generate(
+                        template?.tags.length ?? 0,
+                        (index) =>
+                            ShadBadge.outline(child: Text(template!.tags[index])),
+                      ),
                     ),
                   ),
                 ],
