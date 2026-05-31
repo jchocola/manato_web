@@ -29,7 +29,7 @@ final router = GoRouter(
                 ),
                 GoRoute(
                   path: '/edit_template',
-                  builder: (context, state) => const EidtTemplatePage(),
+                  builder: (context, state) => const EditTemplatePage(),
                 ),
               ],
             ),

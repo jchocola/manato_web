@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:manato_web/core/enum/templates_view_state.dart';
 import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
+import 'package:manato_web/features/admin_templates/presentation/pages/edit_template_page.dart';
 import 'package:manato_web/features/admin_templates/presentation/pages/template_info_page.dart';
 import 'package:manato_web/shared/widgets/template_card.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -43,10 +44,20 @@ class ShowedTemplatesSection extends StatelessWidget {
                 });
 
               },
+              onEditTap: () {
+                //context.go('/templates/edit_template');
+
+                showShadSheet(context: context,
+                side: ShadSheetSide.right,
+                 builder: (context) {
+                  return EditTemplatePage();
+                });
+              },
               template: showingList[index],
               onDeleteTap: () => context.read<TemplatesBloc>().add(
                 TemplatesBlocEventDeleteTemplate(template: showingList[index]),
               ),
+              
               onCheckBoxChanged: (value) {
                 context.read<TemplatesBloc>().add(
                   TemplatesBlocEventToogleVisibleTemplate(

@@ -9,12 +9,14 @@ class TemplateCard extends StatelessWidget {
     this.onTap,
     this.template,
     this.onCheckBoxChanged,
-    this.onDeleteTap
+    this.onDeleteTap,
+    this.onEditTap
   });
   final void Function()? onTap;
   final TemplateModel? template;
   final void Function(bool)? onCheckBoxChanged;
   final void Function()? onDeleteTap;
+    final void Function()? onEditTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -39,6 +41,7 @@ class TemplateCard extends StatelessWidget {
 
                   PopupMenuButton(itemBuilder: (context) => [
                     PopupMenuItem(
+                      onTap: onEditTap,
                       child: Text('Edit'),
                     ),
                     PopupMenuItem(
