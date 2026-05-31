@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:manato_web/core/enum/templates_view_state.dart';
 import 'package:manato_web/features/admin/presentation/data/models/template_model.dart';
 import 'package:manato_web/features/admin_templates/domain/template_repository.dart';
+import 'package:manato_web/main.dart';
 
 ///
 /// EVENT
@@ -32,6 +35,14 @@ class TemplatesBlocEventActivateTemplate extends TemplatesBlocEvent {
 class TemplatesBlocEventDeActivateTemplate extends TemplatesBlocEvent {
   final TemplateModel template;
   TemplatesBlocEventDeActivateTemplate({required this.template});
+
+  @override
+  List<Object?> get props => [template];
+}
+
+class TemplatesBlocEventToogleVisibleTemplate extends TemplatesBlocEvent {
+  final TemplateModel template;
+  TemplatesBlocEventToogleVisibleTemplate({required this.template});
 
   @override
   List<Object?> get props => [template];
@@ -88,7 +99,7 @@ class TemplatesBlocStateLoaded extends TemplatesBlocState {
   });
 
   @override
-  List<Object?> get props => [allList, activatedList, deactivatedList,state];
+  List<Object?> get props => [allList, activatedList, deactivatedList, state];
 
   TemplatesBlocStateLoaded copyWith({
     List<TemplateModel>? allList,
@@ -103,8 +114,6 @@ class TemplatesBlocStateLoaded extends TemplatesBlocState {
       state: state ?? this.state,
     );
   }
-
-  
 }
 
 class TemplatesBlocStateError extends TemplatesBlocState {}
@@ -143,5 +152,42 @@ class TemplatesBloc extends Bloc<TemplatesBlocEvent, TemplatesBlocState> {
         emit(currentState.copyWith(state: event.state));
       }
     });
+
+    on<TemplatesBlocEventDeActivateTemplate>((event, emit) async {
+      try {
+        await templateRepository.deactivateTemplate(model:  event.template);
+      } catch (e) {
+        logger.e(e);
+        emit(TemplatesBlocStateError());
+      } finally {
+        add(TemplatesBlocLoadTemplates());
+      }
+    });
+
+    on<TemplatesBlocEventActivateTemplate>((event, emit) async {
+      try {
+        await templateRepository.activateTemplate(model:  event.template);
+      } catch (e) {
+        logger.e(e);
+        emit(TemplatesBlocStateError());
+      } finally {
+        add(TemplatesBlocLoadTemplates());
+      }
+    }); 
+
+     on<TemplatesBlocEventToogleVisibleTemplate>((event, emit) async {
+      try {
+        if (event.template.visibility == true) {
+          await templateRepository.deactivateTemplate(model: event.template);
+        } else {
+          await templateRepository.activateTemplate(model: event.template);
+        }
+      } catch (e) {
+        logger.e(e);
+        emit(TemplatesBlocStateError());
+      } finally {
+        add(TemplatesBlocLoadTemplates());
+      }
+    });  
   }
 }

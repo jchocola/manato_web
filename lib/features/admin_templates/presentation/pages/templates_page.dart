@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc.dart';
 import 'package:manato_web/features/admin/presentation/blocs/user_bloc/user_bloc_state.dart';
+import 'package:manato_web/features/admin_templates/presentation/blocs/templates_bloc.dart';
 import 'package:manato_web/features/admin_templates/presentation/sections/search_filter_templates_section.dart';
 import 'package:manato_web/features/admin_templates/presentation/sections/showed_templates_section.dart';
 import 'package:manato_web/features/admin/presentation/widgets/sign_in_first_widget.dart';
@@ -17,12 +18,12 @@ class TemplatesPage extends StatelessWidget {
     return Scaffold(
       appBar: appBar(context),
       body: buildBodyWeb(context),
-     // floatingActionButton: fab(context),
+      // floatingActionButton: fab(context),
     );
   }
 
-  Widget fab (BuildContext context){
-    return ShadButton.destructive(child: Icon(Icons.add),);
+  Widget fab(BuildContext context) {
+    return ShadButton.destructive(child: Icon(Icons.add));
   }
 
   Widget buildBodyWeb(BuildContext context) {
@@ -31,25 +32,26 @@ class TemplatesPage extends StatelessWidget {
       child: Column(
         spacing: 1.w,
         children: [
-        SearchFilterTemplatesSection(),
-        Expanded(child: ShowedTemplatesSection())
-        ]),
+          SearchFilterTemplatesSection(),
+          Expanded(child: ShowedTemplatesSection()),
+        ],
+      ),
     );
   }
 
   PreferredSizeWidget appBar(BuildContext context) {
-
-
     return AppBar(
-    
       title: Text('Templates'),
       actions: [
-        Column(
-          mainAxisSize: .min,
-          children: [
-            Text('Actived : 300'),
-            Text('Archived : 32')
-          ],
+        BlocBuilder<TemplatesBloc, TemplatesBlocState>(
+          builder: (context, state) {
+            final currentState = state is TemplatesBlocStateLoaded ? state : null;
+            return Column(
+              crossAxisAlignment: .end,
+              mainAxisSize: .min,
+              children: [Text('Actived : ${currentState?.activatedList.length ?? 0}'), Text('Archived : ${currentState?.deactivatedList.length ?? 0}')],
+            );
+          },
         ),
       ],
     );
